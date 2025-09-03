@@ -39,7 +39,7 @@ dependencies:
   geolocator: ^14.0.2
 
   # 📑 File & Reports
-  file_picker: ^10.3.2
+  # file_picker: ^10.3.2
   pdf: ^3.11.0
   open_filex: ^4.5.0
 
@@ -61,3 +61,10 @@ flutter:
     - assets/images/icons/
     - assets/images/home/hero/
     - assets/images/home/hero/students/
+# Service Folder Images
+    - assets/images/home/service/assessment.png
+    - assets/images/home/service/fileProcessing.png
+    - assets/images/home/service/visaProcessing.png
+    - assets/images/home/service/corresponding.png
+    - assets/images/home/service/ticketing.png
+    - assets/images/home/service/features.png
