@@ -62,11 +62,5 @@ flutter:
     - assets/images/home/hero/
     - assets/images/home/service/
     - assets/images/home/study/
+    - assets/images/home/country/
     - assets/images/home/hero/students/
-# Service Folder Images
-    # - assets/images/home/service/assessment.png
-    # - assets/images/home/service/fileProcessing.png
-    # - assets/images/home/service/visaProcessing.png
-    # - assets/images/home/service/corresponding.png
-    # - assets/images/home/service/ticketing.png
-    # - assets/images/home/service/features.png

@@ -7,7 +7,7 @@ class StudyLevelSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final services = [
-      {"title": "School", "icon": "assets/images/home/study/school.png"},
+      // {"title": "School", "icon": "assets/images/home/study/school.png"},
       {"title": "Bachelors", "icon": "assets/images/home/study/bachelor.png"},
       {"title": "Masters", "icon": "assets/images/home/study/masters.png"},
       {
