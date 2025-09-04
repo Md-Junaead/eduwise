@@ -1,7 +1,10 @@
+import 'package:eduwise/configs/constants/colors.dart';
 import 'package:eduwise/configs/core/app_theme.dart';
 import 'package:eduwise/configs/routes/routes_name.dart';
 import 'package:eduwise/provider/sign_in_provider.dart';
 import 'package:eduwise/configs/widgets/bottom_border_text_field.dart';
+import 'package:eduwise/widget/bottom_nav.dart';
+import 'package:eduwise/widget/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -169,6 +172,13 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                         const SizedBox(height: 20),
 
+                        CustomButton(
+                          text: "SignIn",
+                          color: TColors.secondary,
+                          destination: const BottomNav(),
+                        ),
+
+                        /*
                         // Modern button
                         ElevatedButton(
                           onPressed: () async {
@@ -236,6 +246,8 @@ class _SignInScreenState extends State<SignInScreen> {
                               ),
                           child: const Text('Sign In'),
                         ),
+
+                        */
                       ],
                     ),
                   ),

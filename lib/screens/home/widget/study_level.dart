@@ -1,4 +1,5 @@
 import 'package:eduwise/configs/constants/colors.dart';
+import 'package:eduwise/widget/custom_network_image.dart';
 import 'package:flutter/material.dart';
 
 class StudyLevelSection extends StatelessWidget {
@@ -7,14 +8,31 @@ class StudyLevelSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final services = [
-      // {"title": "School", "icon": "assets/images/home/study/school.png"},
-      {"title": "Bachelors", "icon": "assets/images/home/study/bachelor.png"},
-      {"title": "Masters", "icon": "assets/images/home/study/masters.png"},
+      {
+        "title": "School",
+        "icon":
+            "https://eduwise.com.bd/Frontend/assets/img/icon/guidline/school.png",
+      },
+      {
+        "title": "Bachelors",
+        "icon":
+            "https://eduwise.com.bd/Frontend/assets/img/icon/guidline/bachelor.png",
+      },
+      {
+        "title": "Masters",
+        "icon":
+            "https://eduwise.com.bd/Frontend/assets/img/icon/guidline/masters.png",
+      },
       {
         "title": "Vocational",
-        "icon": "assets/images/home/study/vocational.png",
+        "icon":
+            "https://eduwise.com.bd/Frontend/assets/img/icon/guidline/vocational.png",
       },
-      {"title": "PHD", "icon": "assets/images/home/study/phd.png"},
+      {
+        "title": "PHD",
+        "icon":
+            "https://eduwise.com.bd/Frontend/assets/img/icon/guidline/phd.png",
+      },
     ];
 
     return Transform.translate(
@@ -83,7 +101,13 @@ class StudyLevelSection extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset(services[index]["icon"]!, height: 40),
+                      // 🔹 Updated: replaced Image.asset with CustomNetworkImage
+                      CustomNetworkImage(
+                        imageUrl: services[index]["icon"]!,
+                        width: 40,
+                        height: 40,
+                      ),
+                      // Image.asset(services[index]["icon"]!, height: 40), // 🔹 old code (commented)
                       const SizedBox(height: 10),
                       Text(
                         services[index]["title"]!,

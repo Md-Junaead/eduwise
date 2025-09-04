@@ -33,6 +33,7 @@ dependencies:
   flutter_svg: ^2.0.9
   lottie: ^3.1.2
   flutter_rating_bar: ^4.0.1
+  multi_select_flutter: ^4.1.3
 
   # 📍 Maps & Location
   google_maps_flutter: ^2.7.0
@@ -59,8 +60,6 @@ flutter:
   assets:
     - assets/images/logo/logo-red.png
     - assets/images/icons/
-    - assets/images/home/hero/
     - assets/images/home/service/
-    - assets/images/home/study/
     - assets/images/home/country/
     - assets/images/home/hero/students/

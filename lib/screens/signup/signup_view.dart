@@ -1,7 +1,12 @@
+import 'package:eduwise/configs/constants/colors.dart';
 import 'package:eduwise/configs/core/app_theme.dart';
 import 'package:eduwise/configs/routes/routes_name.dart';
 import 'package:eduwise/provider/sign_in_provider.dart';
 import 'package:eduwise/configs/widgets/bottom_border_text_field.dart';
+import 'package:eduwise/screens/conditions/terms_conditions_screen.dart';
+import 'package:eduwise/screens/signin/signin_view.dart';
+import 'package:eduwise/widget/clickable_text.dart';
+import 'package:eduwise/widget/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -252,88 +257,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   MaterialTapTargetSize.shrinkWrap,
                             ),
                             const SizedBox(width: 4),
-                            const Flexible(
-                              child: Text.rich(
-                                TextSpan(
-                                  text: 'I accept ',
-                                  style: TextStyle(color: Colors.black54),
-                                  children: [
-                                    TextSpan(
-                                      text: 'Terms And Condition',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: AppTheme.primary,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                            ClickableText(
+                              prefixText: "I accept ",
+                              clickableText: "Terms and Conditions",
+                              clickableColor: TColors.secondary,
+                              destination: const TermsAndConditionsScreen(),
                             ),
                           ],
                         ),
                         const SizedBox(height: 20),
 
                         // Modern Sign Up Button
-                        ElevatedButton(
-                          onPressed: () async {
-                            await context
-                                .read<SignInProvider>()
-                                .pressSignInButton();
-                            if (!mounted) return;
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Sign Up tapped (UI only)'),
-                              ),
-                            );
-                          },
-                          style:
-                              ElevatedButton.styleFrom(
-                                minimumSize: const Size(double.infinity, 50),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                elevation: 2,
-                                backgroundColor: AppTheme.primary,
-                                foregroundColor: Colors.white,
-                              ).copyWith(
-                                backgroundColor:
-                                    MaterialStateProperty.resolveWith<Color>((
-                                      states,
-                                    ) {
-                                      if (states.contains(
-                                        MaterialState.pressed,
-                                      )) {
-                                        return Colors.white;
-                                      }
-                                      return AppTheme.primary;
-                                    }),
-                                foregroundColor:
-                                    MaterialStateProperty.resolveWith<Color>((
-                                      states,
-                                    ) {
-                                      if (states.contains(
-                                        MaterialState.pressed,
-                                      )) {
-                                        return AppTheme.primary;
-                                      }
-                                      return Colors.white;
-                                    }),
-                                side:
-                                    MaterialStateProperty.resolveWith<
-                                      BorderSide?
-                                    >((states) {
-                                      if (states.contains(
-                                        MaterialState.pressed,
-                                      )) {
-                                        return const BorderSide(
-                                          color: AppTheme.primary,
-                                          width: 1.5,
-                                        );
-                                      }
-                                      return BorderSide.none;
-                                    }),
-                              ),
-                          child: const Text('Sign Up'),
+                        CustomButton(
+                          text: "Sign Up",
+                          color: TColors.secondary,
+                          destination: const SignInScreen(),
                         ),
 
                         const SizedBox(height: 20),

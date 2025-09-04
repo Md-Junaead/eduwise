@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class TopSection extends StatelessWidget {
   const TopSection({super.key});
@@ -42,10 +43,12 @@ class TopSection extends StatelessWidget {
               ],
             ),
           ),
-          const CircleAvatar(
+
+          // 🔹 Only changed image provider
+          CircleAvatar(
             radius: 50,
-            backgroundImage: AssetImage(
-              "assets/images/home/hero/students/students.png",
+            backgroundImage: CachedNetworkImageProvider(
+              "https://eduwise.com.bd/storage/CompanyDetail/1751975590_686d06a68f658.png",
             ),
           ),
         ],

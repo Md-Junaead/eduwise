@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         title: 'Eduwise',
         theme: AppTheme.light, // Centralized theme
         // 👇 Added Routing system
-        initialRoute: RoutesName.bottomNav,
+        initialRoute: RoutesName.signInScreen,
         onGenerateRoute: Routes.generateRoute,
       ),
     );
