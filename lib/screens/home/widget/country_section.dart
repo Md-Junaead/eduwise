@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:eduwise/widget/custom_network_image.dart'; // 🔹 for network images
 
 /// 🔹 Modern Country Section Widget
 /// - Top Section: Title + Subtitle
-/// - Bottom Section: Professional Card Carousel
+/// - Bottom Section: Professional Grid Cards
 class CountrySection extends StatefulWidget {
   const CountrySection({super.key});
 
@@ -12,34 +12,39 @@ class CountrySection extends StatefulWidget {
 }
 
 class _CountrySectionState extends State<CountrySection> {
-  int _currentIndex = 0;
-
-  /// Dummy card data (5 cards for now)
+  /// Dummy card data (with image urls instead of assets)
   final List<Map<String, String>> cardData = [
     {
       "title": "Study in Canada",
       "subtitle": "Top-ranked universities & diverse culture.",
-      "image": "assets/images/home/country/canada.png",
+      "image":
+          "https://eduwise.com.bd/storage/EduInfoPage/1752386428_68734b7cd4ed7.png",
+      "countryImage":
+          "https://eduwise.com.bd/storage/Country/United%20State%20of%20America_1752041394.png", // 🔹 demo country flag
     },
     {
       "title": "Study in USA",
       "subtitle": "World’s leading education system.",
-      "image": "assets/images/home/country/usa.png",
+      "image":
+          "https://eduwise.com.bd/storage/EduInfoPage/1752386428_68734b7cd4ed7.png",
+      "countryImage":
+          "https://eduwise.com.bd/storage/Country/United%20State%20of%20America_1752041394.png",
     },
     {
       "title": "Study in UK",
       "subtitle": "Historic universities & global recognition.",
-      "image": "assets/images/home/country/uk.png",
+      "image":
+          "https://eduwise.com.bd/storage/EduInfoPage/1752386428_68734b7cd4ed7.png",
+      "countryImage":
+          "https://eduwise.com.bd/storage/Country/United%20State%20of%20America_1752041394.png",
     },
     {
       "title": "Study in Australia",
       "subtitle": "Affordable education & work opportunities.",
-      "image": "assets/images/home/country/ireland.png",
-    },
-    {
-      "title": "Study in Germany",
-      "subtitle": "Low tuition fees & strong research culture.",
-      "image": "assets/images/home/country/hamburg.jpg",
+      "image":
+          "https://eduwise.com.bd/storage/EduInfoPage/1752386428_68734b7cd4ed7.png",
+      "countryImage":
+          "https://eduwise.com.bd/storage/Country/United%20State%20of%20America_1752041394.png",
     },
   ];
 
@@ -73,129 +78,126 @@ class _CountrySectionState extends State<CountrySection> {
 
         const SizedBox(height: 20),
 
-        /// 🔹 Bottom Section (Card Slider)
-        CarouselSlider.builder(
-          itemCount: cardData.length,
-          options: CarouselOptions(
-            height:
-                370, // ⬅️ UPDATED: increased height to avoid RenderFlex overflow
-            enlargeCenterPage: true,
-            enlargeFactor: 0.25, // 🔹 modern subtle zoom (instead of 2x)
-            viewportFraction: 0.55, // 🔹 active card takes more space
-            enableInfiniteScroll: true,
-            autoPlay: true, // 🔹 auto-slide for smooth feel
-            autoPlayInterval: const Duration(seconds: 4),
-            autoPlayCurve: Curves.easeInOut,
-            onPageChanged: (index, reason) {
-              setState(() {
-                _currentIndex = index;
-              });
-            },
-          ),
-          itemBuilder: (context, index, realIndex) {
-            final card = cardData[index];
-            final bool isActive = index == _currentIndex;
-
-            return AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: Colors.red.withOpacity(
-                    isActive ? 1 : 0.3,
-                  ), // active = bold red
-                  width: 2,
+        /// 🔹 GridView for 2 cards/row
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+              childAspectRatio: 0.75,
+            ),
+            itemCount: cardData.length,
+            itemBuilder: (context, index) {
+              final card = cardData[index];
+              return Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: Colors.red.withOpacity(0.5),
+                    width: 1.5,
+                  ),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
                 ),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: isActive
-                        ? Colors.red.withOpacity(0.2)
-                        : Colors.black12,
-                    blurRadius: isActive ? 15 : 6,
-                    offset: const Offset(0, 6),
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  /// Card Image (top)
-                  ClipRRect(
-                    borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(18),
-                    ),
-                    child: Image.asset(
-                      card["image"]!,
-                      height: 140,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-
-                  /// Card Content
-                  Expanded(
-                    // ⬅️ UPDATED: make content flexible to use remaining space
-                    child: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment
-                            .spaceBetween, // ⬅️ UPDATED: push button to bottom, prevent overflow
-                        children: [
-                          Column(
-                            children: [
-                              Text(
-                                card["title"]!,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: isActive
-                                      ? 18
-                                      : 16, // bigger font if active
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 6),
-                              Text(
-                                card["subtitle"]!,
-                                textAlign: TextAlign.center,
-                                maxLines:
-                                    2, // ⬅️ UPDATED: guard against extra-long text
-                                overflow: TextOverflow
-                                    .ellipsis, // ⬅️ UPDATED: prevent vertical growth
-                                style: const TextStyle(
-                                  fontSize: 13,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                            ],
-                          ),
-
-                          /// Card Button
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: 10,
-                              ),
-                            ),
-                            onPressed: () {
-                              // TODO: Navigate or show details
-                            },
-                            child: const Text("Explore"),
-                          ),
-                        ],
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    /// 🔹 Card Image (top, via URL)
+                    ClipRRect(
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(18),
+                      ),
+                      child: CustomNetworkImage(
+                        imageUrl: card["image"]!,
+                        height: 120,
+                        width: double.infinity,
                       ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          },
+
+                    /// 🔹 Card Content
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                /// 🔹 UPDATED: Title + Flag Row
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        card["title"]!,
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 6),
+                                    ClipOval(
+                                      child: CustomNetworkImage(
+                                        imageUrl: card["countryImage"]!,
+                                        height: 25,
+                                        width: 25,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+
+                                const SizedBox(height: 6),
+                                Text(
+                                  card["subtitle"]!,
+                                  textAlign: TextAlign.center,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    fontSize: 11,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            /// 🔹 Card Button
+                            // ElevatedButton(
+                            //   style: ElevatedButton.styleFrom(
+                            //     backgroundColor: Colors.red,
+                            //     shape: RoundedRectangleBorder(
+                            //       borderRadius: BorderRadius.circular(30),
+                            //     ),
+                            //     padding: const EdgeInsets.symmetric(
+                            //       horizontal: 16,
+                            //       vertical: 8,
+                            //     ),
+                            //   ),
+                            //   onPressed: () {
+                            //     // TODO: Navigate or show details
+                            //   },
+                            //   child: const Text("Explore"),
+                            // ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ],
     );

@@ -1,6 +1,7 @@
 import 'package:eduwise/configs/constants/colors.dart';
 import 'package:eduwise/widget/custom_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart'; // 🔹 Carousel slider
 
 class StudyLevelSection extends StatelessWidget {
   const StudyLevelSection({super.key});
@@ -36,35 +37,28 @@ class StudyLevelSection extends StatelessWidget {
     ];
 
     return Transform.translate(
-      offset: const Offset(
-        0,
-        -35,
-      ), // 🔹 moved section up a bit (professional gap with top section)
+      offset: const Offset(0, -35),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
         child: Column(
-          // ✅ Wrapped GridView with Column to add heading
           children: [
             const Padding(
-              padding: EdgeInsets.only(
-                top: 40,
-                bottom: 20,
-              ), // ✅ margin top 5px, bottom 20px
+              padding: EdgeInsets.only(top: 40, bottom: 20),
               child: Column(
                 children: [
                   Text(
-                    "Accurate Guidelines for your Required Study", // ✅ Added heading text
-                    textAlign: TextAlign.center, // ✅ center align
+                    "Accurate Guidelines for your Required Study",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 40, // ✅ updated font size to 40
-                      fontWeight: FontWeight.bold, // ✅ bold
-                      color: TColors.primary, // ✅ red color
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      color: TColors.primary,
                     ),
                   ),
-                  SizedBox(height: 10), // 🔹 gap between heading & subheading
+                  SizedBox(height: 10),
                   Text(
-                    "Get step-by-step support for your chosen study path whether you are starting your bachelors, pursuing a mastes, or aiming for a PhD abroad.", // ✅ subheading text
-                    textAlign: TextAlign.center, // ✅ center align
+                    "Get step-by-step support for your chosen study path whether you are starting your bachelors, pursuing a mastes, or aiming for a PhD abroad.",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black54,
@@ -74,52 +68,78 @@ class StudyLevelSection extends StatelessWidget {
                 ],
               ),
             ),
-            GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 15,
-                mainAxisSpacing: 15,
-                childAspectRatio: 0.9,
+
+            // 🔹 Carousel Slider (fixed overflow issue)
+            SizedBox(
+              height: 250, // total space for card
+              child: CarouselSlider.builder(
+                itemCount: services.length,
+                options: CarouselOptions(
+                  height: 230,
+                  autoPlay: true,
+                  autoPlayInterval: const Duration(seconds: 3),
+                  enlargeCenterPage: true,
+                  viewportFraction: 0.5,
+                  enlargeFactor: 0.3,
+                  enableInfiniteScroll: true,
+                ),
+                itemBuilder: (context, index, realIndex) {
+                  final item = services[index];
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, "/destinationScreen");
+                    },
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 400),
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 12,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 12,
+                            offset: const Offset(0, 6),
+                          ),
+                        ],
+                      ),
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        children: [
+                          /// 🔹 Flexible image (prevents overflow)
+                          Expanded(
+                            flex: 3,
+                            child: CustomNetworkImage(
+                              imageUrl: item["icon"]!,
+                              width: 120,
+                              height: 100,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+
+                          /// 🔹 Flexible text
+                          Expanded(
+                            flex: 1,
+                            child: Center(
+                              child: Text(
+                                item["title"]!,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
               ),
-              itemCount: services.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.15),
-                        blurRadius: 8,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  padding: const EdgeInsets.all(12),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // 🔹 Updated: replaced Image.asset with CustomNetworkImage
-                      CustomNetworkImage(
-                        imageUrl: services[index]["icon"]!,
-                        width: 40,
-                        height: 40,
-                      ),
-                      // Image.asset(services[index]["icon"]!, height: 40), // 🔹 old code (commented)
-                      const SizedBox(height: 10),
-                      Text(
-                        services[index]["title"]!,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
             ),
           ],
         ),
