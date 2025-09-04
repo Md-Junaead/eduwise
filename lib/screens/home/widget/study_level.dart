@@ -43,14 +43,14 @@ class StudyLevelSection extends StatelessWidget {
         child: Column(
           children: [
             const Padding(
-              padding: EdgeInsets.only(top: 40, bottom: 20),
+              padding: EdgeInsets.only(top: 80, bottom: 20),
               child: Column(
                 children: [
                   Text(
                     "Accurate Guidelines for your Required Study",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 40,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: TColors.primary,
                     ),
@@ -58,7 +58,7 @@ class StudyLevelSection extends StatelessWidget {
                   SizedBox(height: 10),
                   Text(
                     "Get step-by-step support for your chosen study path whether you are starting your bachelors, pursuing a mastes, or aiming for a PhD abroad.",
-                    textAlign: TextAlign.center,
+                    textAlign: TextAlign.left,
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black54,

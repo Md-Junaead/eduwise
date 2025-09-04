@@ -56,56 +56,52 @@ class FAQSection extends StatelessWidget {
             ],
           ),
 
-          const SizedBox(
-            height: 15,
-          ), // 🔹 Added spacing between title & FAQ list
-          // FAQ List
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: faqs.length,
-            itemBuilder: (context, index) {
-              final faq = faqs[index];
-              return Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 15.0,
-                ), // 🔹 15px between FAQ items
-                child: Card(
-                  elevation: 1,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    side: const BorderSide(
-                      color: Colors.red,
-                      width: 1.0,
-                    ), // 🔹 Red border
-                  ),
-                  child: ExpansionTile(
-                    iconColor: Colors.blue,
-                    collapsedIconColor: Colors.blue,
-                    title: Text(
-                      faq["question"]!,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black87,
-                      ),
+          Transform.translate(
+            offset: Offset(0, -15), // move FAQ list up by 15px
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: faqs.length,
+              itemBuilder: (context, index) {
+                final faq = faqs[index];
+                return Padding(
+                  padding: const EdgeInsets.only(
+                    bottom: 1.0,
+                  ), // spacing between items
+                  child: Card(
+                    elevation: 1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      side: const BorderSide(color: Colors.red, width: 1.0),
                     ),
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Text(
-                          faq["answer"]!,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.black54,
-                            height: 1.4,
-                          ),
+                    child: ExpansionTile(
+                      iconColor: Colors.blue,
+                      collapsedIconColor: Colors.blue,
+                      title: Text(
+                        faq["question"]!,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black87,
                         ),
                       ),
-                    ],
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Text(
+                            faq["answer"]!,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.black54,
+                              height: 1.4,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ],
       ),

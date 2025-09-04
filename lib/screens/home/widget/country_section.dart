@@ -58,7 +58,7 @@ class _CountrySectionState extends State<CountrySection> {
             children: const [
               Text(
                 "Find Your Ideal Country for Higher Education",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
               Text(
@@ -73,7 +73,7 @@ class _CountrySectionState extends State<CountrySection> {
           ),
         ),
 
-        const SizedBox(height: 20),
+        const SizedBox(height: 1),
 
         /// 🔹 GridView for 2 cards/row
         Padding(
