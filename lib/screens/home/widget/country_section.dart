@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:eduwise/widget/custom_network_image.dart'; // 🔹 for network images
+import 'package:country_flags/country_flags.dart';
 
 /// 🔹 Modern Country Section Widget
 /// - Top Section: Title + Subtitle
@@ -12,39 +13,35 @@ class CountrySection extends StatefulWidget {
 }
 
 class _CountrySectionState extends State<CountrySection> {
-  /// Dummy card data (with image urls instead of assets)
+  /// Dummy card data (with ISO country codes instead of image URLs for flags)
   final List<Map<String, String>> cardData = [
     {
       "title": "Study in Canada",
       "subtitle": "Top-ranked universities & diverse culture.",
       "image":
-          "https://eduwise.com.bd/storage/EduInfoPage/1752386428_68734b7cd4ed7.png",
-      "countryImage":
-          "https://eduwise.com.bd/storage/Country/United%20State%20of%20America_1752041394.png", // 🔹 demo country flag
+          "https://eduwise.com.bd/storage/EduInfoPage/1752037859_686df9e3813ed.png",
+      "countryCode": "CA", // 🇨🇦 Canada
     },
     {
       "title": "Study in USA",
       "subtitle": "World’s leading education system.",
       "image":
           "https://eduwise.com.bd/storage/EduInfoPage/1752386428_68734b7cd4ed7.png",
-      "countryImage":
-          "https://eduwise.com.bd/storage/Country/United%20State%20of%20America_1752041394.png",
+      "countryCode": "US", // 🇺🇸 USA
     },
     {
       "title": "Study in UK",
       "subtitle": "Historic universities & global recognition.",
       "image":
-          "https://eduwise.com.bd/storage/EduInfoPage/1752386428_68734b7cd4ed7.png",
-      "countryImage":
-          "https://eduwise.com.bd/storage/Country/United%20State%20of%20America_1752041394.png",
+          "https://eduwise.com.bd/storage/EduInfoPage/1752053579_686e374b1b938.png",
+      "countryCode": "GB", // 🇬🇧 United Kingdom
     },
     {
       "title": "Study in Australia",
       "subtitle": "Affordable education & work opportunities.",
       "image":
           "https://eduwise.com.bd/storage/EduInfoPage/1752386428_68734b7cd4ed7.png",
-      "countryImage":
-          "https://eduwise.com.bd/storage/Country/United%20State%20of%20America_1752041394.png",
+      "countryCode": "AU", // 🇦🇺 Australia
     },
   ];
 
@@ -133,7 +130,7 @@ class _CountrySectionState extends State<CountrySection> {
                           children: [
                             Column(
                               children: [
-                                /// 🔹 UPDATED: Title + Flag Row
+                                /// 🔹 Title + Flag Row
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -148,12 +145,11 @@ class _CountrySectionState extends State<CountrySection> {
                                       ),
                                     ),
                                     const SizedBox(width: 6),
-                                    ClipOval(
-                                      child: CustomNetworkImage(
-                                        imageUrl: card["countryImage"]!,
-                                        height: 25,
-                                        width: 25,
-                                      ),
+                                    // ✅ UPDATED: Use dynamic countryCode instead of hardcoded 'US'
+                                    CountryFlag.fromCountryCode(
+                                      card["countryCode"]!, // <-- changed here
+                                      height: 18,
+                                      width: 25,
                                     ),
                                   ],
                                 ),
@@ -171,24 +167,6 @@ class _CountrySectionState extends State<CountrySection> {
                                 ),
                               ],
                             ),
-
-                            /// 🔹 Card Button
-                            // ElevatedButton(
-                            //   style: ElevatedButton.styleFrom(
-                            //     backgroundColor: Colors.red,
-                            //     shape: RoundedRectangleBorder(
-                            //       borderRadius: BorderRadius.circular(30),
-                            //     ),
-                            //     padding: const EdgeInsets.symmetric(
-                            //       horizontal: 16,
-                            //       vertical: 8,
-                            //     ),
-                            //   ),
-                            //   onPressed: () {
-                            //     // TODO: Navigate or show details
-                            //   },
-                            //   child: const Text("Explore"),
-                            // ),
                           ],
                         ),
                       ),

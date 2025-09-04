@@ -1,4 +1,25 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <!-- Internet Permission (Required for API calls) -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <!-- Storage Permissions (For reading/writing files) -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32"/> <!-- Deprecated in Android 10+ -->
+    
+    <!-- Camera Permission (If capturing images is needed) -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <!-- Location Permissions (If your app uses GPS or maps) -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <!-- Phone State Permission (Useful for device information access) -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+
     <application
         android:label="eduwise"
         android:name="${applicationName}"
