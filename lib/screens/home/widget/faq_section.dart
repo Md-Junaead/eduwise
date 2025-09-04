@@ -15,22 +15,23 @@ class FAQSection extends StatelessWidget {
       {
         "question": "Which countries can I apply to through EduWise?",
         "answer":
-            "EduWise partners with universities across the USA, UK, Canada, Australia, Europe, and more.",
+            "We assist students in applying to top destinations such as Canada, the USA, the UK, Australia, and European countries, depending on your academic profile and preferences.",
       },
       {
         "question": "How do I start the study abroad process with EduWise?",
         "answer":
-            "You can start by booking a free consultation with EduWise experts. They will guide you step by step.",
+            "You can begin by filling out our consultation form or contacting us directly. We will schedule an initial counselling session to understand your goals and guide you accordingly.",
       },
       {
         "question": "Do I need IELTS or any English test to apply?",
         "answer":
-            "Requirements vary by country and university. Many universities accept alternatives or offer conditional admission.",
+            "Most universities in English-speaking countries require proof of English proficiency, such as IELTS, TOEFL, PTE, or Duolingo. However, some universities may offer waivers based on your academic background.",
       },
       {
         "question": "How much does it cost to study abroad?",
         "answer":
-            "The cost depends on the country, university, and program. EduWise provides budget-friendly options during consultation.",
+            // "The cost depends on the country, university, and program. EduWise provides budget-friendly options during consultation."
+            "Tuition fees vary by country and institution, typically ranging from CAD 15,000 to CAD 30,000 per year. Living expenses may range from CAD 10,000 to CAD 15,000 per year, depending on location and lifestyle.",
       },
     ];
 
