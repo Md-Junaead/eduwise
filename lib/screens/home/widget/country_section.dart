@@ -145,7 +145,6 @@ class _CountrySectionState extends State<CountrySection> {
                                       ),
                                     ),
                                     const SizedBox(width: 6),
-                                    // ✅ UPDATED: Use dynamic countryCode instead of hardcoded 'US'
                                     CountryFlag.fromCountryCode(
                                       card["countryCode"]!, // <-- changed here
                                       height: 18,

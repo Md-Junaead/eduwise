@@ -1,4 +1,5 @@
 import 'package:eduwise/screens/home/widget/country_section.dart';
+import 'package:eduwise/screens/home/widget/faq_section.dart';
 import 'package:eduwise/screens/home/widget/search_box.dart';
 import 'package:eduwise/screens/home/widget/services_section.dart';
 import 'package:eduwise/screens/home/widget/study_level.dart';
@@ -26,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
             // FilterSection(),
             StudyLevelSection(),
             CountrySection(),
+            FAQSection(),
           ],
         ),
       ),
