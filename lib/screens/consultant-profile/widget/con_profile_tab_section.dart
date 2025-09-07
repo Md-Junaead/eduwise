@@ -143,6 +143,8 @@ class ConsultantTabSection extends StatelessWidget {
                     child: DropdownButtonFormField<String?>(
                       value: provider.serviceNameFilter, // can be null
                       isDense: true,
+                      isExpanded:
+                          true, // ✅ ensures it fits width & truncates if needed
                       decoration: const InputDecoration(
                         labelText: "Filter by Service",
                         border: OutlineInputBorder(),
@@ -151,14 +153,47 @@ class ConsultantTabSection extends StatelessWidget {
                           vertical: 10,
                         ),
                       ),
+                      // ✅ Truncate the displayed (selected) value safely
+                      selectedItemBuilder: (context) {
+                        final itemsForDisplay = <String?>[
+                          null,
+                          ...serviceNames,
+                        ];
+                        return itemsForDisplay
+                            .map(
+                              (val) => Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  val ?? "All Services",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  softWrap: false,
+                                ),
+                              ),
+                            )
+                            .toList();
+                      },
                       items: <DropdownMenuItem<String?>>[
-                        const DropdownMenuItem(
+                        // ✅ Use ellipsis in menu items too
+                        DropdownMenuItem(
                           value: null,
-                          child: Text("All Services"),
+                          child: const Text(
+                            "All Services",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: false,
+                          ),
                         ),
                         ...serviceNames.map(
-                          (name) =>
-                              DropdownMenuItem(value: name, child: Text(name)),
+                          (name) => DropdownMenuItem(
+                            value: name,
+                            child: Text(
+                              name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: false,
+                            ),
+                          ),
                         ),
                       ],
                       onChanged: (val) =>
@@ -172,6 +207,8 @@ class ConsultantTabSection extends StatelessWidget {
                     child: DropdownButtonFormField<String?>(
                       value: provider.countryFilter, // can be null
                       isDense: true,
+                      isExpanded:
+                          true, // ✅ ensures it fits width & truncates if needed
                       decoration: const InputDecoration(
                         labelText: "Filter by Country",
                         border: OutlineInputBorder(),
@@ -180,13 +217,44 @@ class ConsultantTabSection extends StatelessWidget {
                           vertical: 10,
                         ),
                       ),
+                      // ✅ Truncate the displayed (selected) value safely
+                      selectedItemBuilder: (context) {
+                        final itemsForDisplay = <String?>[null, ...countries];
+                        return itemsForDisplay
+                            .map(
+                              (val) => Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  val ?? "All Countries",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  softWrap: false,
+                                ),
+                              ),
+                            )
+                            .toList();
+                      },
                       items: <DropdownMenuItem<String?>>[
-                        const DropdownMenuItem(
+                        // ✅ Use ellipsis in menu items too
+                        DropdownMenuItem(
                           value: null,
-                          child: Text("All Countries"),
+                          child: const Text(
+                            "All Countries",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: false,
+                          ),
                         ),
                         ...countries.map(
-                          (ct) => DropdownMenuItem(value: ct, child: Text(ct)),
+                          (ct) => DropdownMenuItem(
+                            value: ct,
+                            child: Text(
+                              ct,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: false,
+                            ),
+                          ),
                         ),
                       ],
                       onChanged: (val) => provider.setCountryFilter(val), // ✅
@@ -194,6 +262,7 @@ class ConsultantTabSection extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   // Clear button (≈10% of width)
+                  /*
                   SizedBox(
                     width: 48, // ✅ keeps it compact, prevents overflow
                     child: IconButton(
@@ -202,6 +271,7 @@ class ConsultantTabSection extends StatelessWidget {
                       icon: const Icon(Icons.filter_alt_off),
                     ),
                   ),
+                  */
                 ],
               );
             },
