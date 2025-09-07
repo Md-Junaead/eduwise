@@ -1,5 +1,5 @@
 import 'package:eduwise/configs/constants/colors.dart';
-import 'package:eduwise/screens/consultant-profile/all_consultant.dart';
+import 'package:eduwise/screens/all-consultant/all_consultant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:eduwise/widget/custom_network_image.dart'; // 🔹 Your custom image loader
@@ -28,6 +28,62 @@ class ConsultantProvider extends ChangeNotifier {
       imageUrl:
           "https://eduwise.com.bd/storage/Users/1752048017_686e2191cb6a2.png",
       rating: 4.5,
+    ),
+    Consultant(
+      name: "Jane Smith",
+      service: "University Admission Service",
+      imageUrl:
+          "https://eduwise.com.bd/storage/Users/1752048777_686e24899bc8a.png",
+      rating: 4.0,
+    ),
+    Consultant(
+      name: "Jane Smith",
+      service: "University Admission Service",
+      imageUrl:
+          "https://eduwise.com.bd/storage/Users/1752048777_686e24899bc8a.png",
+      rating: 4.0,
+    ),
+    Consultant(
+      name: "Jane Smith",
+      service: "University Admission Service",
+      imageUrl:
+          "https://eduwise.com.bd/storage/Users/1752048777_686e24899bc8a.png",
+      rating: 4.0,
+    ),
+    Consultant(
+      name: "Jane Smith",
+      service: "University Admission Service",
+      imageUrl:
+          "https://eduwise.com.bd/storage/Users/1752048777_686e24899bc8a.png",
+      rating: 4.0,
+    ),
+    Consultant(
+      name: "Jane Smith",
+      service: "University Admission Service",
+      imageUrl:
+          "https://eduwise.com.bd/storage/Users/1752048777_686e24899bc8a.png",
+      rating: 4.0,
+    ),
+    Consultant(
+      name: "Jane Smith",
+      service: "University Admission Service",
+      imageUrl:
+          "https://eduwise.com.bd/storage/Users/1752048777_686e24899bc8a.png",
+      rating: 4.0,
+    ),
+    Consultant(
+      name: "Jane Smith",
+      service: "University Admission Service",
+      imageUrl:
+          "https://eduwise.com.bd/storage/Users/1752048777_686e24899bc8a.png",
+      rating: 4.0,
+    ),
+    Consultant(
+      name: "Jane Smith",
+      service: "University Admission Service",
+      imageUrl:
+          "https://eduwise.com.bd/storage/Users/1752048777_686e24899bc8a.png",
+      rating: 4.0,
     ),
     Consultant(
       name: "Jane Smith",
@@ -271,79 +327,8 @@ class ConsultantCard extends StatelessWidget {
               ),
             ],
           ),
-
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: [
-          //     Expanded(
-          //       child: ElevatedButton(
-          //         onPressed: () {
-          //           // ✅ View Profile Action
-          //         },
-          //         style: ElevatedButton.styleFrom(
-          //           backgroundColor: Colors.blue,
-          //           padding: const EdgeInsets.symmetric(vertical: 8),
-          //           shape: RoundedRectangleBorder(
-          //             borderRadius: BorderRadius.circular(12),
-          //           ),
-          //         ),
-          //         child: const Text("Profile"),
-          //       ),
-          //     ),
-          //     const SizedBox(width: 8),
-          //     Expanded(
-          //       child: ElevatedButton(
-          //         onPressed: () {
-          //           // ✅ Contact Action
-          //         },
-          //         style: ElevatedButton.styleFrom(
-          //           backgroundColor: Colors.green,
-          //           padding: const EdgeInsets.symmetric(vertical: 8),
-          //           shape: RoundedRectangleBorder(
-          //             borderRadius: BorderRadius.circular(12),
-          //           ),
-          //         ),
-          //         child: const Text("Contact"),
-          //       ),
-          //     ),
-          //   ],
-          // ),
         ],
       ),
     );
   }
 }
-
-/*
-
-Our Consultant text on left & right side will have see all clickable text (destination: consultantScreen)
-
-Bellow Our Consultant section:
-
-I want to create consultant card for 2 consultant
-Image: 
-
-
-There will be consultan image which will be getting from url (https://eduwise.com.bd/storage/Users/1752048017_686e2191cb6a2.png)
-
-CustomNetworkImage(
-  imageUrl: "https://eduwise.com.bd/Frontend/assets/img/icon/guidline/bachelor.png",
-),
-
-This is how the image called.
-
-
-There will be name (Bold, Black color)
-Provided service name (Visa processing Service)
-given star & two button left & right
-view Profice & Contact
-
-
-task:
-give me fluter code
-make sure it's folow proper state management guideline using provider
-comment the code for better understand
-tell me what you did
-
-
-*/
