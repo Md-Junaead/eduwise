@@ -1,3 +1,4 @@
+import 'package:eduwise/configs/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 /// Reusable Header (PreferredSizeWidget) so it can be used as AppBar anywhere.
@@ -16,7 +17,7 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.red, // 🔴 Red header background
+      backgroundColor: TColors.secondary, // 🔴 Red header background
       elevation: 2,
       centerTitle: false,
       titleSpacing: 0,

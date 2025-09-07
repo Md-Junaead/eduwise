@@ -1,5 +1,5 @@
 import 'package:eduwise/widget/drawer.dart';
-import 'package:eduwise/widget/header.dart';
+import 'package:eduwise/widget/appbar.dart';
 import 'package:flutter/material.dart';
 
 /// AppShell is your reusable Scaffold that provides:
