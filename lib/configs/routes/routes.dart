@@ -1,5 +1,6 @@
 import 'package:eduwise/configs/routes/routes_name.dart';
 import 'package:eduwise/screens/conditions/terms_conditions_screen.dart';
+import 'package:eduwise/screens/all-consultant/all_consultant.dart';
 import 'package:eduwise/screens/consultant-profile/con_profile_view.dart';
 import 'package:eduwise/screens/home/home_screen.dart';
 import 'package:eduwise/screens/profile/profile_view.dart';
@@ -45,9 +46,14 @@ class Routes {
           builder: (BuildContext context) => ProfileScreen(),
         );
 
-      case RoutesName.consultantScreen:
+      case RoutesName.consultantProfileScreen:
         return MaterialPageRoute(
-          builder: (BuildContext context) => ConsultantScreen(),
+          builder: (BuildContext context) => ConsultantProfileScreen(index: 0),
+        );
+
+      case RoutesName.allConsultantScreen:
+        return MaterialPageRoute(
+          builder: (BuildContext context) => AllConsultantScreen(),
         );
 
       default:

@@ -10,7 +10,7 @@ class ProfileScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Center(
         child: Text(
-          "Hello Missy Profile 👩",
+          "Hello Profile 👩",
           style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,

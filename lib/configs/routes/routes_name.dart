@@ -8,5 +8,6 @@ class RoutesName {
   // Bottom Nav Bar
   static const String bottomNav = 'BottomNav';
   static const String profileScreen = 'ProfileScreen';
-  static const String consultantScreen = 'ConsultantScreen';
+  static const String consultantProfileScreen = 'ConsultantProfileScreen';
+  static const String allConsultantScreen = 'AllConsultantScreen';
 }

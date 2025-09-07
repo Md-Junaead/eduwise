@@ -16,7 +16,7 @@ class _BottomNavState extends State<BottomNav> {
   // ✅ Use IndexedStack for persistent navigation
   final List<Widget> _screens = const [
     HomeScreen(),
-    ConsultantScreen(),
+    ConsultantProfileScreen(index: 0),
     ProfileScreen(),
   ];
 
