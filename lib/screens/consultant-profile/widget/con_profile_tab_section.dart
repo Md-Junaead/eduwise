@@ -1,6 +1,8 @@
 import 'package:eduwise/configs/constants/colors.dart';
 import 'package:eduwise/screens/consultant-profile/con_profile_model.dart';
+import 'package:eduwise/screens/consultant-profile/con_provider_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 /// 🔹 Tab Section with Experience, Skills, Biography, Portfolio, Service
 class ConsultantTabSection extends StatelessWidget {
@@ -30,14 +32,14 @@ class ConsultantTabSection extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          // 🔹 Tab Content Section
+          // UPDATED: increased height a bit to accommodate filter row + list
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.22, // dynamic height
+            height: MediaQuery.of(context).size.height * 0.32, // UPDATED
             child: TabBarView(
               children: [
                 _buildPlainList(consultant.experience, "No Experience Added"),
                 _buildChipList(consultant.skills, "No Skills Added"),
-                _buildChipList(consultant.services, "No Services Added"),
+                _buildServiceFilterAndCards(context, consultant), // UPDATED
                 _buildBiography(consultant.biography),
                 _buildPlainList(consultant.portfolio, "No Portfolio Added"),
               ],
@@ -74,7 +76,7 @@ class ConsultantTabSection extends StatelessWidget {
     );
   }
 
-  /// 🔹 Modern Chip List (for Skills & Services)
+  /// 🔹 Modern Chip List (for Skills)
   Widget _buildChipList(List<String> items, String emptyMessage) {
     if (items.isEmpty) {
       return Center(
@@ -109,6 +111,178 @@ class ConsultantTabSection extends StatelessWidget {
     );
   }
 
+  /// NEW: Service tab — filter (service, country) + modern cards
+  Widget _buildServiceFilterAndCards(
+    BuildContext context,
+    ConsultantProfileModel c,
+  ) {
+    final provider = context.watch<ConsultantProfileProvider>();
+
+    // NEW: Unique options for dropdowns (from the consultant's own services)
+    final serviceNames = {for (final s in c.services) s.serviceName}.toList()
+      ..sort();
+    final countries = {for (final s in c.services) s.country}.toList()..sort();
+
+    // NEW: The filtered list based on Provider state (one/both/none)
+    final filtered = provider.filteredServicesFor(c);
+
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 6, // ✅ updated from 9 → 6 as you noted
+          ),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return Row(
+                children: [
+                  // Service dropdown (≈45% of width)
+                  Expanded(
+                    flex: 4, // 4 parts out of total 9 (≈44%)
+                    child: DropdownButtonFormField<String?>(
+                      value: provider.serviceNameFilter, // can be null
+                      isDense: true,
+                      decoration: const InputDecoration(
+                        labelText: "Filter by Service",
+                        border: OutlineInputBorder(),
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 10,
+                        ),
+                      ),
+                      items: <DropdownMenuItem<String?>>[
+                        const DropdownMenuItem(
+                          value: null,
+                          child: Text("All Services"),
+                        ),
+                        ...serviceNames.map(
+                          (name) =>
+                              DropdownMenuItem(value: name, child: Text(name)),
+                        ),
+                      ],
+                      onChanged: (val) =>
+                          provider.setServiceNameFilter(val), // ✅
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  // Country dropdown (≈45% of width)
+                  Expanded(
+                    flex: 4, // 4 parts out of total 9 (≈44%)
+                    child: DropdownButtonFormField<String?>(
+                      value: provider.countryFilter, // can be null
+                      isDense: true,
+                      decoration: const InputDecoration(
+                        labelText: "Filter by Country",
+                        border: OutlineInputBorder(),
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 10,
+                        ),
+                      ),
+                      items: <DropdownMenuItem<String?>>[
+                        const DropdownMenuItem(
+                          value: null,
+                          child: Text("All Countries"),
+                        ),
+                        ...countries.map(
+                          (ct) => DropdownMenuItem(value: ct, child: Text(ct)),
+                        ),
+                      ],
+                      onChanged: (val) => provider.setCountryFilter(val), // ✅
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  // Clear button (≈10% of width)
+                  SizedBox(
+                    width: 48, // ✅ keeps it compact, prevents overflow
+                    child: IconButton(
+                      tooltip: "Clear filters",
+                      onPressed: provider.clearFilters, // ✅
+                      icon: const Icon(Icons.filter_alt_off),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+        const SizedBox(height: 6),
+
+        // The list of modern service cards
+        Expanded(
+          child: filtered.isEmpty
+              ? const Center(
+                  child: Text(
+                    "No Services Found",
+                    style: TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                )
+              : ListView.builder(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  itemCount: filtered.length,
+                  itemBuilder: (context, index) {
+                    final s = filtered[index];
+                    return Card(
+                      elevation: 3,
+                      margin: const EdgeInsets.only(bottom: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(14),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Top row: country + flag (right)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  s.country,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(3),
+                                  child: Image.network(
+                                    s.flagUrl,
+                                    width: 28,
+                                    height: 20,
+                                    fit: BoxFit.cover,
+                                    // small safety for broken images
+                                    errorBuilder: (_, __, ___) => const Icon(
+                                      Icons.flag_outlined,
+                                      size: 18,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            // Service name
+                            Text(
+                              s.serviceName,
+                              style: const TextStyle(
+                                fontSize: 14.5,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                                height: 1.2,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+        ),
+      ],
+    );
+  }
+
   /// 🔹 Biography with Modern Styling
   Widget _buildBiography(String text) {
     if (text.isEmpty) {
@@ -134,17 +308,3 @@ class ConsultantTabSection extends StatelessWidget {
     );
   }
 }
-
-
-
-
-/*
-Remove card system for experience & portfolio
-this 2 section does not require card system
-Update full code
-tell me what you did
-do not change anything else
-
-
-
-*/

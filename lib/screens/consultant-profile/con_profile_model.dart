@@ -1,4 +1,17 @@
-/// 🔹 Consultant Model - defines unique data structure
+/// NEW: A structured model for services so we can attach country + flag
+class ServiceModel {
+  final String serviceName;
+  final String country;
+  final String flagUrl; // small flag icon url
+
+  const ServiceModel({
+    required this.serviceName,
+    required this.country,
+    required this.flagUrl,
+  });
+}
+
+/// UPDATED: ConsultantProfileModel now uses List<ServiceModel> for `services`
 class ConsultantProfileModel {
   final String name;
   final String imageUrl;
@@ -9,10 +22,13 @@ class ConsultantProfileModel {
   final List<String> skills;
   final String biography;
   final List<String> portfolio;
-  final List<String> services;
+
+  // UPDATED: was List<String>, now List<ServiceModel>
+  final List<ServiceModel> services;
+
   final List<String> reviews;
 
-  ConsultantProfileModel({
+  const ConsultantProfileModel({
     required this.name,
     required this.imageUrl,
     required this.address,
@@ -22,7 +38,7 @@ class ConsultantProfileModel {
     required this.skills,
     required this.biography,
     required this.portfolio,
-    required this.services,
+    required this.services, // UPDATED
     required this.reviews,
   });
 }
