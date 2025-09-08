@@ -22,12 +22,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _emailCtrl = TextEditingController();
   final _passwordCtrl = TextEditingController();
 
+  // ✅ Added confirm password controller
+  final _confirmPasswordCtrl = TextEditingController();
+
   String _selectedRole = "student"; // default is student
 
   @override
   void dispose() {
     _emailCtrl.dispose();
     _passwordCtrl.dispose();
+    _confirmPasswordCtrl.dispose(); // ✅ dispose confirm password controller
     super.dispose();
   }
 
@@ -49,7 +53,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
       backgroundColor: Colors.grey[100],
       body: SafeArea(
         child: SingleChildScrollView(
-          // 🔹 reduced padding (20 → 16)
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: Center(
             child: Column(
@@ -59,55 +62,46 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 // 1. TOP SECTION
                 // =========================
                 Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: width * 0.18,
-                  ), // 🔹 slightly reduced logo padding
+                  padding: EdgeInsets.symmetric(horizontal: width * 0.18),
                   child: Center(
                     child: Image.asset(
                       'assets/images/logo/logo-red.png',
                       fit: BoxFit.contain,
-                      height: 80, // 🔹 reduced from 96 → 80
+                      height: 80,
                     ),
                   ),
                 ),
-                const SizedBox(height: 6), // 🔹 reduced from 16 → 12
-
+                const SizedBox(height: 6),
                 const Text(
                   'Create an Account to get study tips and consultancy',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontSize: 13,
-                  ), // 🔹 reduced 14 → 13
+                  style: TextStyle(color: Colors.black87, fontSize: 13),
                 ),
-                const SizedBox(height: 6), // 🔹 reduced from 8 → 6
-
+                const SizedBox(height: 6),
                 const Text(
                   'Sign Up',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w700,
-                    fontSize: 22, // 🔹 reduced from 24 → 22
+                    fontSize: 22,
                   ),
                 ),
-                const SizedBox(height: 12), // 🔹 reduced from 24 → 20
+                const SizedBox(height: 12),
                 // =========================
                 // 2. MIDDLE SECTION (inside Card)
                 // =========================
                 Card(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                      14,
-                    ), // 🔹 slightly smaller radius
+                    borderRadius: BorderRadius.circular(14),
                   ),
-                  elevation: 3, // 🔹 reduced shadow
+                  elevation: 3,
                   child: Padding(
-                    padding: const EdgeInsets.all(16), // 🔹 reduced from 20
+                    padding: const EdgeInsets.all(16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        // ✅ Role selection buttons (Student / Consultant)
+                        // ✅ Role selection buttons
                         Row(
                           children: [
                             Expanded(
@@ -118,15 +112,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 style: OutlinedButton.styleFrom(
                                   padding: const EdgeInsets.symmetric(
                                     vertical: 12,
-                                  ), // 🔹 reduced from 14
+                                  ),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      10,
-                                    ), // 🔹 smaller radius
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
                                   side: BorderSide(
                                     color: AppTheme.primary,
-                                    width: 1.2, // 🔹 thinner border
+                                    width: 1.2,
                                   ),
                                   backgroundColor: _selectedRole == "student"
                                       ? AppTheme.primary
@@ -140,11 +132,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 14,
-                                  ), // 🔹 smaller text
+                                  ),
                                 ),
                               ),
                             ),
-                            const SizedBox(width: 10), // 🔹 reduced from 12
+                            const SizedBox(width: 10),
                             Expanded(
                               child: OutlinedButton(
                                 onPressed: () {
@@ -179,7 +171,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 8), // 🔹 reduced from 20
+                        const SizedBox(height: 8),
                         // Email input
                         BottomBorderTextField(
                           controller: _emailCtrl,
@@ -187,7 +179,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           keyboardType: TextInputType.emailAddress,
                           onChanged: context.read<SignInProvider>().setEmail,
                         ),
-                        const SizedBox(height: 8), // 🔹 reduced from 20
+                        const SizedBox(height: 8),
                         // Password input
                         BottomBorderTextField(
                           controller: _passwordCtrl,
@@ -203,24 +195,34 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   ? Icons.visibility_off
                                   : Icons.visibility,
                               color: Colors.grey[700],
-                              size: 20, // 🔹 reduced icon size
+                              size: 20,
                             ),
                           ),
                         ),
-                        const SizedBox(height: 8), // 🔹 reduced
-                        // Confirm Password input
+                        const SizedBox(height: 8),
+                        // ✅ Confirm Password input
                         BottomBorderTextField(
-                          controller: TextEditingController(),
+                          controller:
+                              _confirmPasswordCtrl, // use proper controller
                           hintText: 'Confirm Password',
-                          obscureText: true,
+                          obscureText:
+                              sp.obscurePassword, // same logic as password
                           onChanged: (_) {},
-                          suffixIcon: Icon(
-                            Icons.lock_outline,
-                            size: 20, // 🔹 smaller icon
-                            color: Colors.grey[700],
+                          suffixIcon: IconButton(
+                            onPressed: context
+                                .read<SignInProvider>()
+                                .toggleObscurePassword, // same toggle
+                            icon: Icon(
+                              sp.obscurePassword
+                                  ? Icons.visibility_off
+                                  : Icons
+                                        .visibility, // ✅ same icons as password
+                              color: Colors.grey[700],
+                              size: 20,
+                            ),
                           ),
                         ),
-                        const SizedBox(height: 16), // 🔹 reduced
+                        const SizedBox(height: 16),
                         // Terms and Conditions Checkbox
                         Row(
                           children: [
@@ -237,8 +239,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                               materialTapTargetSize:
                                   MaterialTapTargetSize.shrinkWrap,
-                              visualDensity: VisualDensity
-                                  .compact, // 🔹 makes checkbox smaller
+                              visualDensity: VisualDensity.compact,
                             ),
                             const SizedBox(width: 4),
                             Flexible(
@@ -251,31 +252,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 16), // 🔹 reduced
+                        const SizedBox(height: 16),
                         // Modern Sign Up Button
                         CustomButton(
                           text: "Sign Up",
                           color: TColors.secondary,
                           destination: const SignInScreen(),
-                          // height: 44,
-                          // fontSize: 15,
                         ),
-
-                        const SizedBox(height: 16), // 🔹 reduced
+                        const SizedBox(height: 16),
                         // ✅ Social Signup Options
-                        const Divider(
-                          height: 28,
-                          thickness: 1,
-                        ), // 🔹 reduced divider height
+                        const Divider(height: 28, thickness: 1),
                         const Text(
                           "Or continue with",
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 13,
-                          ), // 🔹 reduced
+                          style: TextStyle(color: Colors.black54, fontSize: 13),
                         ),
-                        const SizedBox(height: 12), // 🔹 reduced
+                        const SizedBox(height: 12),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -284,15 +276,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               icon: Image.asset(
                                 "assets/images/icons/google.webp",
                                 height: 22,
-                              ), // 🔹 reduced
+                              ),
                             ),
-                            const SizedBox(width: 16), // 🔹 reduced
+                            const SizedBox(width: 16),
                             IconButton(
                               onPressed: () {},
                               icon: Image.asset(
                                 "assets/images/icons/apple.webp",
                                 height: 22,
-                              ), // 🔹 reduced
+                              ),
                             ),
                             const SizedBox(width: 16),
                             IconButton(
@@ -300,7 +292,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               icon: Image.asset(
                                 "assets/images/icons/facebook.webp",
                                 height: 22,
-                              ), // 🔹 reduced
+                              ),
                             ),
                           ],
                         ),
@@ -308,7 +300,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20), // 🔹 reduced from 24
+                const SizedBox(height: 20),
                 // =========================
                 // 3. BOTTOM SECTION
                 // =========================
@@ -317,10 +309,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   children: [
                     const Text(
                       "Already have an account? ",
-                      style: TextStyle(
-                        color: Colors.black87,
-                        fontSize: 13,
-                      ), // 🔹 reduced
+                      style: TextStyle(color: Colors.black87, fontSize: 13),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -331,7 +320,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         style: TextStyle(
                           color: AppTheme.primary,
                           fontWeight: FontWeight.w700,
-                          fontSize: 14, // 🔹 reduced
+                          fontSize: 14,
                         ),
                       ),
                     ),
@@ -345,23 +334,3 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 }
-
-
-                        /*
-                        // Name Input
-                        BottomBorderTextField(
-                          controller: TextEditingController(),
-                          hintText: 'Enter Your Name',
-                          keyboardType: TextInputType.text,
-                          onChanged: (_) {},
-                        ),
-                        const SizedBox(height: 20),
-                        // Number Input
-                        BottomBorderTextField(
-                          controller: TextEditingController(),
-                          hintText: 'Enter Your Number',
-                          keyboardType: TextInputType.phone,
-                          onChanged: (_) {},
-                        ),
-                        const SizedBox(height: 20),
-*/
