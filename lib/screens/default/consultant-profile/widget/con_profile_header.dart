@@ -1,6 +1,6 @@
-import 'package:eduwise/screens/consultant-profile/con_profile_model.dart';
+import 'package:eduwise/screens/default/consultant-profile/con_profile_model.dart';
 import 'package:flutter/material.dart';
-import '../../../widget/custom_network_image.dart';
+import '../../../../widget/custom_network_image.dart';
 
 /// 🔹 Modern & Responsive Profile Header Section
 class ConsultantProfileHeader extends StatelessWidget {

@@ -36,10 +36,10 @@
 //   }
 // }
 
-import 'package:eduwise/screens/consultant-profile/con_provider_model.dart';
-import 'package:eduwise/screens/consultant-profile/widget/con_profile_header.dart';
-import 'package:eduwise/screens/consultant-profile/widget/con_profile_review_section.dart';
-import 'package:eduwise/screens/consultant-profile/widget/con_profile_tab_section.dart';
+import 'package:eduwise/screens/default/consultant-profile/con_provider_model.dart';
+import 'package:eduwise/screens/default/consultant-profile/widget/con_profile_header.dart';
+import 'package:eduwise/screens/default/consultant-profile/widget/con_profile_review_section.dart';
+import 'package:eduwise/screens/default/consultant-profile/widget/con_profile_tab_section.dart';
 import 'package:eduwise/widget/app_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

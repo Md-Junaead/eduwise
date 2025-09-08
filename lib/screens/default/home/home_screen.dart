@@ -1,11 +1,11 @@
-import 'package:eduwise/screens/home/widget/our_con_section.dart';
-import 'package:eduwise/screens/home/widget/country_section.dart';
-import 'package:eduwise/screens/home/widget/faq_section.dart';
-import 'package:eduwise/screens/home/widget/filter_section.dart';
-import 'package:eduwise/screens/home/widget/search_box.dart';
-import 'package:eduwise/screens/home/widget/services_section.dart';
-import 'package:eduwise/screens/home/widget/study_level.dart';
-import 'package:eduwise/screens/home/widget/top_section.dart';
+import 'package:eduwise/screens/default/home/widget/our_con_section.dart';
+import 'package:eduwise/screens/default/home/widget/country_section.dart';
+import 'package:eduwise/screens/default/home/widget/faq_section.dart';
+import 'package:eduwise/screens/default/home/widget/filter_section.dart';
+import 'package:eduwise/screens/default/home/widget/search_box.dart';
+import 'package:eduwise/screens/default/home/widget/services_section.dart';
+import 'package:eduwise/screens/default/home/widget/study_level.dart';
+import 'package:eduwise/screens/default/home/widget/top_section.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {

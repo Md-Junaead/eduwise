@@ -191,7 +191,7 @@
 //     );
 //   }
 // }
-import 'package:eduwise/widget/bottom_nav.dart';
+import 'package:eduwise/screens/default/signin/signin_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'chat_bot_provider.dart';
@@ -297,7 +297,7 @@ class ChatBotSection extends StatelessWidget {
                       debugPrint("📦 Final Student Data: ${chat.getData}");
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (_) => const BottomNav()),
+                        MaterialPageRoute(builder: (_) => const SignInScreen()),
                       );
                     },
                     style: ElevatedButton.styleFrom(

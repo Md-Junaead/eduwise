@@ -1,5 +1,5 @@
 import 'package:eduwise/configs/constants/colors.dart';
-import 'package:eduwise/screens/all-consultant/all_consultant.dart';
+import 'package:eduwise/screens/default/all-consultant/all_consultant.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:eduwise/widget/custom_network_image.dart'; // 🔹 Your custom image loader

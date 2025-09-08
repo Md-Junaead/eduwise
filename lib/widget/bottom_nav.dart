@@ -1,6 +1,6 @@
-import 'package:eduwise/screens/consultant-profile/con_profile_view.dart';
-import 'package:eduwise/screens/home/home_screen.dart';
-import 'package:eduwise/screens/profile/profile_view.dart';
+import 'package:eduwise/screens/default/consultant-profile/con_profile_view.dart';
+import 'package:eduwise/screens/default/home/home_screen.dart';
+import 'package:eduwise/screens/default/profile/profile_view.dart';
 import 'package:flutter/material.dart';
 
 class BottomNav extends StatefulWidget {
@@ -81,3 +81,16 @@ class _BottomNavState extends State<BottomNav> {
     );
   }
 }
+
+
+
+/*
+
+This is my bottom nav bar, i want to use it any screen on my mobile app, 
+how to update it to reuseable
+or is there any way to make my bottom nav bar to view any screen user open
+no matter where it is, or do i need to call it on every screen
+
+
+
+*/

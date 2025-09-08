@@ -1,4 +1,4 @@
-import 'package:eduwise/screens/consultant-profile/con_profile_model.dart';
+import 'package:eduwise/screens/default/consultant-profile/con_profile_model.dart';
 import 'package:flutter/material.dart';
 
 /// 🔹 Review Section

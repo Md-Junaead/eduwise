@@ -3,15 +3,14 @@ import 'package:eduwise/configs/core/app_theme.dart';
 import 'package:eduwise/configs/routes/routes_name.dart';
 import 'package:eduwise/provider/sign_in_provider.dart';
 import 'package:eduwise/configs/widgets/bottom_border_text_field.dart';
-import 'package:eduwise/screens/conditions/terms_conditions_screen.dart';
-import 'package:eduwise/screens/signin/signin_view.dart';
+import 'package:eduwise/screens/default/conditions/terms_conditions_screen.dart';
+import 'package:eduwise/screens/default/signin/signin_view.dart';
 import 'package:eduwise/widget/clickable_text.dart';
 import 'package:eduwise/widget/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 /// Sign UP Screen
-/// Sections: Top (logo + texts), Middle (inputs/actions), Bottom (signup)
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -23,7 +22,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _emailCtrl = TextEditingController();
   final _passwordCtrl = TextEditingController();
 
-  // 👇 Added state to track selected role
   String _selectedRole = "student"; // default is student
 
   @override
@@ -51,7 +49,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       backgroundColor: Colors.grey[100],
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          // 🔹 reduced padding (20 → 16)
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -60,23 +59,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 // 1. TOP SECTION
                 // =========================
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: width * 0.20),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: width * 0.18,
+                  ), // 🔹 slightly reduced logo padding
                   child: Center(
                     child: Image.asset(
                       'assets/images/logo/logo-red.png',
                       fit: BoxFit.contain,
-                      height: 96,
+                      height: 80, // 🔹 reduced from 96 → 80
                     ),
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 6), // 🔹 reduced from 16 → 12
 
                 const Text(
                   'Create an Account to get study tips and consultancy',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.black87, fontSize: 14),
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 13,
+                  ), // 🔹 reduced 14 → 13
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 6), // 🔹 reduced from 8 → 6
 
                 const Text(
                   'Sign Up',
@@ -84,21 +88,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w700,
-                    fontSize: 24,
+                    fontSize: 22, // 🔹 reduced from 24 → 22
                   ),
                 ),
-                const SizedBox(height: 24),
-
+                const SizedBox(height: 12), // 🔹 reduced from 24 → 20
                 // =========================
                 // 2. MIDDLE SECTION (inside Card)
                 // =========================
                 Card(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(
+                      14,
+                    ), // 🔹 slightly smaller radius
                   ),
-                  elevation: 4,
+                  elevation: 3, // 🔹 reduced shadow
                   child: Padding(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(16), // 🔹 reduced from 20
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
@@ -108,101 +113,85 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             Expanded(
                               child: OutlinedButton(
                                 onPressed: () {
-                                  setState(() {
-                                    _selectedRole = "student"; // 👈 update role
-                                  });
+                                  setState(() => _selectedRole = "student");
                                 },
                                 style: OutlinedButton.styleFrom(
                                   padding: const EdgeInsets.symmetric(
-                                    vertical: 14,
-                                  ),
+                                    vertical: 12,
+                                  ), // 🔹 reduced from 14
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
+                                    borderRadius: BorderRadius.circular(
+                                      10,
+                                    ), // 🔹 smaller radius
                                   ),
                                   side: BorderSide(
                                     color: AppTheme.primary,
-                                    width: 1.5,
+                                    width: 1.2, // 🔹 thinner border
                                   ),
                                   backgroundColor: _selectedRole == "student"
                                       ? AppTheme.primary
-                                      : Colors.white, // 👈 active color
+                                      : Colors.white,
                                   foregroundColor: _selectedRole == "student"
                                       ? Colors.white
-                                      : AppTheme.primary, // 👈 text color
+                                      : AppTheme.primary,
                                 ),
                                 child: const Text(
                                   'Student',
-                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                  ), // 🔹 smaller text
                                 ),
                               ),
                             ),
-                            const SizedBox(width: 12),
+                            const SizedBox(width: 10), // 🔹 reduced from 12
                             Expanded(
                               child: OutlinedButton(
                                 onPressed: () {
-                                  setState(() {
-                                    _selectedRole =
-                                        "consultant"; // 👈 update role
-                                  });
+                                  setState(() => _selectedRole = "consultant");
                                 },
                                 style: OutlinedButton.styleFrom(
                                   padding: const EdgeInsets.symmetric(
-                                    vertical: 14,
+                                    vertical: 12,
                                   ),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
                                   side: BorderSide(
                                     color: AppTheme.primary,
-                                    width: 1.5,
+                                    width: 1.2,
                                   ),
                                   backgroundColor: _selectedRole == "consultant"
                                       ? AppTheme.primary
-                                      : Colors.white, // 👈 active color
+                                      : Colors.white,
                                   foregroundColor: _selectedRole == "consultant"
                                       ? Colors.white
-                                      : AppTheme.primary, // 👈 text color
+                                      : AppTheme.primary,
                                 ),
                                 child: const Text(
                                   'Consultant',
-                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                  ),
                                 ),
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 20),
-
-                        // // Name Input
-                        // BottomBorderTextField(
-                        //   controller: TextEditingController(),
-                        //   hintText: 'Enter Your Name',
-                        //   keyboardType: TextInputType.text,
-                        //   onChanged: (_) {},
-                        // ),
-                        // const SizedBox(height: 20),
-                        // // Number Input
-                        // BottomBorderTextField(
-                        //   controller: TextEditingController(),
-                        //   hintText: 'Enter Your Number',
-                        //   keyboardType: TextInputType.phone,
-                        //   onChanged: (_) {},
-                        // ),
-                        // const SizedBox(height: 20),
-
+                        const SizedBox(height: 8), // 🔹 reduced from 20
                         // Email input
                         BottomBorderTextField(
                           controller: _emailCtrl,
-                          hintText: 'Enter Your Email',
+                          hintText: 'Email',
                           keyboardType: TextInputType.emailAddress,
                           onChanged: context.read<SignInProvider>().setEmail,
                         ),
-                        const SizedBox(height: 20),
-
+                        const SizedBox(height: 8), // 🔹 reduced from 20
                         // Password input
                         BottomBorderTextField(
                           controller: _passwordCtrl,
-                          hintText: 'Enter Your Password',
+                          hintText: 'Password',
                           obscureText: sp.obscurePassword,
                           onChanged: context.read<SignInProvider>().setPassword,
                           suffixIcon: IconButton(
@@ -214,31 +203,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   ? Icons.visibility_off
                                   : Icons.visibility,
                               color: Colors.grey[700],
+                              size: 20, // 🔹 reduced icon size
                             ),
                           ),
                         ),
-                        const SizedBox(height: 20),
-
+                        const SizedBox(height: 8), // 🔹 reduced
                         // Confirm Password input
                         BottomBorderTextField(
                           controller: TextEditingController(),
-                          hintText: 'Enter Confirm Password',
+                          hintText: 'Confirm Password',
                           obscureText: true,
                           onChanged: (_) {},
-                          suffixIcon: IconButton(
-                            onPressed: context
-                                .read<SignInProvider>()
-                                .toggleObscurePassword,
-                            icon: Icon(
-                              sp.obscurePassword
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              color: Colors.grey[700],
-                            ),
+                          suffixIcon: Icon(
+                            Icons.lock_outline,
+                            size: 20, // 🔹 smaller icon
+                            color: Colors.grey[700],
                           ),
                         ),
-                        const SizedBox(height: 20),
-
+                        const SizedBox(height: 16), // 🔹 reduced
                         // Terms and Conditions Checkbox
                         Row(
                           children: [
@@ -255,63 +237,70 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                               materialTapTargetSize:
                                   MaterialTapTargetSize.shrinkWrap,
+                              visualDensity: VisualDensity
+                                  .compact, // 🔹 makes checkbox smaller
                             ),
                             const SizedBox(width: 4),
-                            ClickableText(
-                              prefixText: "I accept ",
-                              clickableText: "Terms and Conditions",
-                              clickableColor: TColors.secondary,
-                              destination: const TermsAndConditionsScreen(),
+                            Flexible(
+                              child: ClickableText(
+                                prefixText: "I accept ",
+                                clickableText: "Terms and Conditions",
+                                clickableColor: TColors.secondary,
+                                destination: const TermsAndConditionsScreen(),
+                              ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 20),
-
+                        const SizedBox(height: 16), // 🔹 reduced
                         // Modern Sign Up Button
                         CustomButton(
                           text: "Sign Up",
                           color: TColors.secondary,
                           destination: const SignInScreen(),
+                          // height: 44,
+                          // fontSize: 15,
                         ),
 
-                        const SizedBox(height: 20),
-
+                        const SizedBox(height: 16), // 🔹 reduced
                         // ✅ Social Signup Options
-                        const Divider(height: 32, thickness: 1),
+                        const Divider(
+                          height: 28,
+                          thickness: 1,
+                        ), // 🔹 reduced divider height
                         const Text(
                           "Or continue with",
                           textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.black54, fontSize: 14),
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 13,
+                          ), // 🔹 reduced
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: 12), // 🔹 reduced
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            // Google button
                             IconButton(
                               onPressed: () {},
                               icon: Image.asset(
                                 "assets/images/icons/google.webp",
-                                height: 28,
-                              ),
+                                height: 22,
+                              ), // 🔹 reduced
                             ),
-                            const SizedBox(width: 20),
-                            // Apple button
+                            const SizedBox(width: 16), // 🔹 reduced
                             IconButton(
                               onPressed: () {},
                               icon: Image.asset(
                                 "assets/images/icons/apple.webp",
-                                height: 28,
-                              ),
+                                height: 22,
+                              ), // 🔹 reduced
                             ),
-                            const SizedBox(width: 20),
-                            // Facebook button
+                            const SizedBox(width: 16),
                             IconButton(
                               onPressed: () {},
                               icon: Image.asset(
                                 "assets/images/icons/facebook.webp",
-                                height: 28,
-                              ),
+                                height: 22,
+                              ), // 🔹 reduced
                             ),
                           ],
                         ),
@@ -319,8 +308,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 24),
-
+                const SizedBox(height: 20), // 🔹 reduced from 24
                 // =========================
                 // 3. BOTTOM SECTION
                 // =========================
@@ -329,7 +317,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   children: [
                     const Text(
                       "Already have an account? ",
-                      style: TextStyle(color: Colors.black87),
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 13,
+                      ), // 🔹 reduced
                     ),
                     GestureDetector(
                       onTap: () {
@@ -340,6 +331,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         style: TextStyle(
                           color: AppTheme.primary,
                           fontWeight: FontWeight.w700,
+                          fontSize: 14, // 🔹 reduced
                         ),
                       ),
                     ),
@@ -353,3 +345,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 }
+
+
+                        /*
+                        // Name Input
+                        BottomBorderTextField(
+                          controller: TextEditingController(),
+                          hintText: 'Enter Your Name',
+                          keyboardType: TextInputType.text,
+                          onChanged: (_) {},
+                        ),
+                        const SizedBox(height: 20),
+                        // Number Input
+                        BottomBorderTextField(
+                          controller: TextEditingController(),
+                          hintText: 'Enter Your Number',
+                          keyboardType: TextInputType.phone,
+                          onChanged: (_) {},
+                        ),
+                        const SizedBox(height: 20),
+*/

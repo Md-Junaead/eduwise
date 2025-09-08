@@ -215,3 +215,20 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 }
+
+
+/*
+Code SigninScreen:
+
+Code SignupScreen:
+
+Task:
+SignupScreen looks good to me but it's taking too much space & text, icon & button looks bigger then it should be
+can we solve this issue, how can we do it
+Check my code & update full code
+tell me what you did
+commnet the code you update
+
+
+
+*/

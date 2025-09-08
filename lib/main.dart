@@ -6,8 +6,6 @@ import 'package:eduwise/configs/core/app_theme.dart';
 import 'package:eduwise/configs/routes/routes.dart';
 import 'package:eduwise/configs/routes/routes_name.dart';
 
-// 🔹 Import providers from the new file
-
 void main() {
   runApp(const MyApp());
 }
@@ -25,7 +23,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Eduwise',
         theme: AppTheme.light, // Centralized theme
-        initialRoute: RoutesName.consultantProfileScreen,
+        initialRoute: RoutesName.bottomNav,
         onGenerateRoute: Routes.generateRoute,
       ),
     );

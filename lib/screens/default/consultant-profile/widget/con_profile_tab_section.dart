@@ -1,6 +1,6 @@
 import 'package:eduwise/configs/constants/colors.dart';
-import 'package:eduwise/screens/consultant-profile/con_profile_model.dart';
-import 'package:eduwise/screens/consultant-profile/con_provider_model.dart';
+import 'package:eduwise/screens/default/consultant-profile/con_profile_model.dart';
+import 'package:eduwise/screens/default/consultant-profile/con_provider_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
