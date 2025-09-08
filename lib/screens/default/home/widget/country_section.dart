@@ -17,28 +17,32 @@ class _CountrySectionState extends State<CountrySection> {
   final List<Map<String, String>> cardData = [
     {
       "title": "Study in Canada",
-      "subtitle": "Top-ranked universities & diverse culture.",
+      "subtitle":
+          "Top-ranked universities with strong global recognition, diverse and welcoming culture for international students, and clear pathways to permanent residency after graduation.",
       "image":
           "https://eduwise.com.bd/storage/EduInfoPage/1752037859_686df9e3813ed.png",
       "countryCode": "CA", // 🇨🇦 Canada
     },
     {
       "title": "Study in USA",
-      "subtitle": "World’s leading education system.",
+      "subtitle":
+          "World’s leading education system with top Ivy League and state universities, cutting-edge research and technology access, and limitless career growth opportunities worldwide.",
       "image":
           "https://eduwise.com.bd/storage/EduInfoPage/1752386428_68734b7cd4ed7.png",
       "countryCode": "US", // 🇺🇸 USA
     },
     {
       "title": "Study in UK",
-      "subtitle": "Historic universities & global recognition.",
+      "subtitle":
+          "Historic universities with centuries of academic excellence, globally recognized degrees respected by employers, and vibrant multicultural student life with rich traditions.",
       "image":
           "https://eduwise.com.bd/storage/EduInfoPage/1752053579_686e374b1b938.png",
       "countryCode": "GB", // 🇬🇧 United Kingdom
     },
     {
       "title": "Study in Australia",
-      "subtitle": "Affordable education & work opportunities.",
+      "subtitle":
+          "Affordable education with excellent value for money, flexible work opportunities during and after study, and a gateway to global career options across multiple industries.",
       "image":
           "https://eduwise.com.bd/storage/EduInfoPage/1752386428_68734b7cd4ed7.png",
       "countryCode": "AU", // 🇦🇺 Australia
@@ -137,7 +141,7 @@ class _CountrySectionState extends State<CountrySection> {
                                     Expanded(
                                       child: Text(
                                         card["title"]!,
-                                        textAlign: TextAlign.center,
+                                        textAlign: TextAlign.left,
                                         style: const TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.bold,

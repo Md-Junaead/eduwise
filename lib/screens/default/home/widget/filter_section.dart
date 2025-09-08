@@ -1,44 +1,3 @@
-// I need a search form with multiple option to search, only one mandotory (Highest Study)
-// First Input Form: Highest Study (School, Bachelor, Masters, Vocationa, PHD, ) Mandotory
-// 2nd Input: Country (country_picker: ^2.0.27)
-// 3rd Input: service (There will be 6 service to chose, use dropdown, service 1, 2 ...6)
-// 4th: subject ( ["Engineering",
-//             "Architecture",
-//             "Law",
-//             "Art",
-//             "Computer Science",
-//             "Science",
-//             "Financial Accounting",
-//             "Economics",
-//             "Education",
-//             "Social Sciences",
-//             "Agriculture",
-//             "Biology",
-//             "Health",
-//             "Business",
-//             "Chemistry",
-//             "Information Technology",
-//             "Nursing",
-//             "Business Administration",
-//             "Communications",
-//             "Politics",
-//             "Psychology",
-//             "Bachelor of Science",
-//             "Chemical Engineering",
-//             "Aeronautical and Aerospace Engineering"
-//         ]; )
-// 5th: Budget, number system
-
-// import 'package:flutter/material.dart';
-// import 'package:pdf/widgets.dart';
-// import 'package:provider/provider.dart';
-
-// Search buttom Blue with search icon
-// this should be on a Card
-// border radius 3% all side
-// gradiant color: right red, left Blue
-// Title will be : Search With Your preferred Country, Subject, or University Name
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:country_picker/country_picker.dart';
@@ -52,8 +11,7 @@ class FilterProvider extends ChangeNotifier {
   double? budget;
 
   /// ✅ Keep controller here so it persists (cleaner state management)
-  final TextEditingController countryController =
-      TextEditingController(); // ✅ UPDATED
+  final TextEditingController countryController = TextEditingController();
 
   void setHighestStudy(String value) {
     highestStudy = value;
@@ -100,14 +58,14 @@ class FilterSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => FilterProvider(),
-      child: const FilterFormCard(), // ✅ simplified
+      child: const FilterFormCard(),
     );
   }
 }
 
 /// 🔹 Filter Form Card
 class FilterFormCard extends StatelessWidget {
-  const FilterFormCard({super.key}); // ✅ make const
+  const FilterFormCard({super.key});
 
   final List<String> studies = const [
     "School",
@@ -168,7 +126,7 @@ class FilterFormCard extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(24),
         ),
-        padding: const EdgeInsets.all(2), // border thickness
+        padding: const EdgeInsets.all(2),
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white,
@@ -176,7 +134,6 @@ class FilterFormCard extends StatelessWidget {
           ),
           padding: const EdgeInsets.all(20),
           child: Consumer<FilterProvider>(
-            // ✅ UPDATED: clean rebuild
             builder: (context, provider, _) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
@@ -217,7 +174,7 @@ class FilterFormCard extends StatelessWidget {
                   /// Country Picker
                   TextFormField(
                     readOnly: true,
-                    controller: provider.countryController, // ✅ from provider
+                    controller: provider.countryController,
                     decoration: _inputDecoration("Country"),
                     onTap: () {
                       showCountryPicker(
@@ -251,21 +208,13 @@ class FilterFormCard extends StatelessWidget {
 
                   const SizedBox(height: 15),
 
-                  /// Subject
-                  DropdownButtonFormField<String>(
-                    isExpanded: true,
-                    value: provider.subject,
-                    decoration: _inputDecoration("Subject"),
-                    items: subjects
-                        .map(
-                          (sub) => DropdownMenuItem(
-                            value: sub,
-                            child: Text(sub, overflow: TextOverflow.ellipsis),
-                          ),
-                        )
-                        .toList(),
-                    onChanged: (value) {
-                      if (value != null) provider.setSubject(value);
+                  /// ✅ Subject dropdown (modern bottom sheet)
+                  SearchableDropdown(
+                    label: "Subject",
+                    items: subjects,
+                    selectedItem: provider.subject,
+                    onItemSelected: (value) {
+                      provider.setSubject(value);
                     },
                   ),
 
@@ -345,15 +294,292 @@ class FilterFormCard extends StatelessWidget {
   }
 }
 
+/// 🔹 Modern Searchable Dropdown Widget (Subject only)
+class SearchableDropdown extends StatelessWidget {
+  final String label;
+  final List<String> items;
+  final String? selectedItem;
+  final Function(String) onItemSelected;
+
+  const SearchableDropdown({
+    super.key,
+    required this.label,
+    required this.items,
+    this.selectedItem,
+    required this.onItemSelected,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => _openBottomSheet(context),
+      borderRadius: BorderRadius.circular(12),
+      child: InputDecorator(
+        decoration: InputDecoration(
+          labelText: label,
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 14,
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(
+              child: Text(
+                selectedItem ?? "Select $label",
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: selectedItem == null ? Colors.black54 : Colors.black87,
+                ),
+              ),
+            ),
+            const Icon(Icons.arrow_drop_down),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _openBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true, // ✅ keyboard-safe
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
+      ),
+      builder: (ctx) {
+        return _SubjectPickerSheet(
+          title: label,
+          items: items,
+          selected: selectedItem,
+          onSelected: (value) {
+            onItemSelected(value);
+            Navigator.of(ctx).pop();
+          },
+        );
+      },
+    );
+  }
+}
+
+/// 🔹 Bottom sheet with search + ranking
+class _SubjectPickerSheet extends StatefulWidget {
+  final String title;
+  final List<String> items;
+  final String? selected;
+  final ValueChanged<String> onSelected;
+
+  const _SubjectPickerSheet({
+    required this.title,
+    required this.items,
+    required this.onSelected,
+    this.selected,
+  });
+
+  @override
+  State<_SubjectPickerSheet> createState() => _SubjectPickerSheetState();
+}
+
+class _SubjectPickerSheetState extends State<_SubjectPickerSheet> {
+  late final TextEditingController _ctrl;
+  late List<String> _filtered;
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl = TextEditingController();
+    _filtered = List.of(widget.items);
+    _ctrl.addListener(_runFilter);
+  }
+
+  @override
+  void dispose() {
+    _ctrl.removeListener(_runFilter);
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  void _runFilter() {
+    final q = _ctrl.text.trim().toLowerCase();
+    if (q.isEmpty) {
+      setState(() => _filtered = List.of(widget.items));
+      return;
+    }
+
+    int scoreOf(String s, String q) {
+      final lower = s.toLowerCase();
+      if (lower.startsWith(q)) return 0;
+      final idx = lower.indexOf(q);
+      if (idx > 0) {
+        final prev = lower[idx - 1];
+        if (prev == ' ' || prev == '-' || prev == '(') return 1;
+      }
+      if (idx >= 0) return 2;
+      return 999;
+    }
+
+    final matched = <(String, int)>[];
+    for (final s in widget.items) {
+      final sc = scoreOf(s, q);
+      if (sc != 999) matched.add((s, sc));
+    }
+    matched.sort((a, b) {
+      final byScore = a.$2.compareTo(b.$2);
+      return byScore != 0 ? byScore : a.$1.compareTo(b.$1);
+    });
+
+    setState(() => _filtered = matched.map((e) => e.$1).toList());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final bottom = MediaQuery.of(context).viewInsets.bottom;
+
+    return SafeArea(
+      top: false,
+      child: Padding(
+        padding: EdgeInsets.only(bottom: bottom),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 10, 16, 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              /// drag handle
+              Container(
+                width: 42,
+                height: 5,
+                margin: const EdgeInsets.only(bottom: 12),
+                decoration: BoxDecoration(
+                  color: Colors.black12,
+                  borderRadius: BorderRadius.circular(100),
+                ),
+              ),
+
+              /// Header row
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      "Select ${widget.title}",
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+
+              /// Search box
+              TextField(
+                controller: _ctrl,
+                autofocus: true,
+                textInputAction: TextInputAction.search,
+                decoration: InputDecoration(
+                  hintText: "Search ${widget.title}...",
+                  prefixIcon: const Icon(Icons.search),
+                  suffixIcon: _ctrl.text.isEmpty
+                      ? null
+                      : IconButton(
+                          icon: const Icon(Icons.clear),
+                          onPressed: () => _ctrl.clear(),
+                        ),
+                  filled: true,
+                  fillColor: Colors.grey.shade100,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+
+              /// Results
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxHeight: 420),
+                child: _filtered.isEmpty
+                    ? const Center(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 24),
+                          child: Text("No results found"),
+                        ),
+                      )
+                    : ListView.separated(
+                        shrinkWrap: true,
+                        itemCount: _filtered.length,
+                        separatorBuilder: (_, __) =>
+                            Divider(height: 1, color: Colors.grey.shade300),
+                        itemBuilder: (context, i) {
+                          final item = _filtered[i];
+                          final selected = item == widget.selected;
+                          return ListTile(
+                            leading: Icon(
+                              selected
+                                  ? Icons.radio_button_checked
+                                  : Icons.radio_button_off,
+                            ),
+                            title: _HighlightedMatchText(
+                              text: item,
+                              query: _ctrl.text,
+                            ),
+                            onTap: () => widget.onSelected(item),
+                          );
+                        },
+                      ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// 🔹 Highlight search matches
+class _HighlightedMatchText extends StatelessWidget {
+  final String text;
+  final String query;
+
+  const _HighlightedMatchText({required this.text, required this.query});
+
+  @override
+  Widget build(BuildContext context) {
+    if (query.isEmpty) return Text(text);
+    final lower = text.toLowerCase();
+    final q = query.toLowerCase();
+    final start = lower.indexOf(q);
+    if (start < 0) return Text(text);
+    final end = start + q.length;
+
+    return RichText(
+      text: TextSpan(
+        style: DefaultTextStyle.of(context).style,
+        children: [
+          if (start > 0) TextSpan(text: text.substring(0, start)),
+          TextSpan(
+            text: text.substring(start, end),
+            style: const TextStyle(fontWeight: FontWeight.w700),
+          ),
+          if (end < text.length) TextSpan(text: text.substring(end)),
+        ],
+      ),
+    );
+  }
+}
+
+
 
 
 /*
 
-Everything works fine here, so use proper state management here
-use provider to manage state
-do not change anything else
-update full code
-make clean & structured code
-tell me what you did
-comment the part of code you update
+Fix Overflow issue when keybord is open
+
+
 */

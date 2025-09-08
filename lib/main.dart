@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Eduwise',
         theme: AppTheme.light, // Centralized theme
-        initialRoute: RoutesName.signUpScreen,
+        initialRoute: RoutesName.bottomNav,
         onGenerateRoute: Routes.generateRoute,
       ),
     );
