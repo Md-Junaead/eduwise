@@ -1,3 +1,5 @@
+import 'package:eduwise/configs/constants/colors.dart';
+import 'package:eduwise/screens/student-dashboard/profile/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:eduwise/widget/custom_network_image.dart'; // 🔹 for network images
 import 'package:country_flags/country_flags.dart';
@@ -143,14 +145,15 @@ class _CountrySectionState extends State<CountrySection> {
                                         card["title"]!,
                                         textAlign: TextAlign.left,
                                         style: const TextStyle(
-                                          fontSize: 12,
+                                          fontSize: 13,
                                           fontWeight: FontWeight.bold,
+                                          color: TColors.primary,
                                         ),
                                       ),
                                     ),
                                     const SizedBox(width: 6),
                                     CountryFlag.fromCountryCode(
-                                      card["countryCode"]!, // <-- changed here
+                                      card["countryCode"]!,
                                       height: 18,
                                       width: 25,
                                     ),
@@ -158,14 +161,43 @@ class _CountrySectionState extends State<CountrySection> {
                                 ),
 
                                 const SizedBox(height: 6),
+
+                                /// 🔹 Subtitle (2 lines max)
                                 Text(
                                   card["subtitle"]!,
-                                  textAlign: TextAlign.center,
+                                  textAlign: TextAlign.left,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
                                     fontSize: 11,
                                     color: Colors.black87,
+                                  ),
+                                ),
+
+                                const SizedBox(height: 6),
+
+                                /// 🔹 Learn More (Clickable custom style)
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const StudentProfileScreen(),
+                                      ),
+                                    );
+                                  },
+                                  child: const Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "Learn More >",
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w700,
+                                        color: TColors.primary,
+                                        decoration: TextDecoration.none,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],
