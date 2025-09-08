@@ -10,4 +10,7 @@ class RoutesName {
   static const String profileScreen = 'ProfileScreen';
   static const String consultantProfileScreen = 'ConsultantProfileScreen';
   static const String allConsultantScreen = 'AllConsultantScreen';
+
+  // Studen Portal
+  static const String studentProfileScreen = 'StudentProfileScreen';
 }

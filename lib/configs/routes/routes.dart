@@ -6,6 +6,7 @@ import 'package:eduwise/screens/default/home/home_screen.dart';
 import 'package:eduwise/screens/default/profile/profile_view.dart';
 import 'package:eduwise/screens/default/signin/signin_view.dart';
 import 'package:eduwise/screens/default/signup/signup_view.dart';
+import 'package:eduwise/screens/student-dashboard/profile/profile_view.dart';
 import 'package:eduwise/widget/bottom_nav.dart';
 import 'package:flutter/material.dart';
 
@@ -54,6 +55,12 @@ class Routes {
       case RoutesName.allConsultantScreen:
         return MaterialPageRoute(
           builder: (BuildContext context) => AllConsultantScreen(),
+        );
+
+      // Student Portal
+      case RoutesName.studentProfileScreen:
+        return MaterialPageRoute(
+          builder: (context) => const StudentProfileScreen(), // ✅ Correct way
         );
 
       default:

@@ -1,3 +1,4 @@
+import 'package:eduwise/screens/student-dashboard/profile/student_profile_provider.dart';
 import 'package:provider/provider.dart';
 
 // 🔹 Import all your providers here
@@ -14,5 +15,8 @@ class AppProviders {
       create: (_) => ConsultantProfileProvider(),
     ),
     ChangeNotifierProvider<AppState>(create: (_) => AppState()),
+    ChangeNotifierProvider<StudentProfileProvider>(
+      create: (_) => StudentProfileProvider(),
+    ),
   ];
 }

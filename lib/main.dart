@@ -1,4 +1,4 @@
-import 'package:eduwise/widget/providers.dart';
+import 'package:eduwise/widget/app_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Eduwise',
         theme: AppTheme.light, // Centralized theme
-        initialRoute: RoutesName.bottomNav,
+        initialRoute: RoutesName.studentProfileScreen,
         onGenerateRoute: Routes.generateRoute,
       ),
     );
