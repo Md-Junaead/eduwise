@@ -4,14 +4,37 @@ import 'package:flutter/material.dart';
 /// 🔹 State Management for Consultants
 class ConsultantProfileProvider extends ChangeNotifier {
   // NEW: Filter state (null = no filter)
-  String? _serviceNameFilter; // e.g. "Visa Processing Service"
-  String? _countryFilter; // e.g. "Canada"
+  // String? _serviceNameFilter; // e.g. "Visa Processing Service"
+  // String? _countryFilter; // e.g. "Canada"
 
-  // NEW: Public getters for the UI
+  // // NEW: Public getters for the UI
+  // String? get serviceNameFilter => _serviceNameFilter;
+  // String? get countryFilter => _countryFilter;
+
+  // // NEW: Setters update state + notify listeners
+  // void setServiceNameFilter(String? value) {
+  //   _serviceNameFilter = (value == null || value.isEmpty) ? null : value;
+  //   notifyListeners();
+  // }
+
+  // void setCountryFilter(String? value) {
+  //   _countryFilter = (value == null || value.isEmpty) ? null : value;
+  //   notifyListeners();
+  // }
+
+  // // NEW: Clear both filters
+  // void clearFilters() {
+  //   _serviceNameFilter = null;
+  //   _countryFilter = null;
+  //   notifyListeners();
+  // }
+
+  String? _serviceNameFilter;
+  String? _countryFilter;
+
   String? get serviceNameFilter => _serviceNameFilter;
   String? get countryFilter => _countryFilter;
 
-  // NEW: Setters update state + notify listeners
   void setServiceNameFilter(String? value) {
     _serviceNameFilter = (value == null || value.isEmpty) ? null : value;
     notifyListeners();
@@ -22,7 +45,6 @@ class ConsultantProfileProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // NEW: Clear both filters
   void clearFilters() {
     _serviceNameFilter = null;
     _countryFilter = null;
@@ -350,7 +372,23 @@ class ConsultantProfileProvider extends ChangeNotifier {
 
   List<ConsultantProfileModel> get consultants => _consultants;
 
-  // NEW: Core filtering algorithm; applies 0, 1, or 2 filters (AND logic)
+  /// 🔹 NEW: Return consultants filtered by country/service
+  List<ConsultantProfileModel> get filteredConsultants {
+    return _consultants.where((c) {
+      final hasMatchingService = c.services.any((s) {
+        final matchName = _serviceNameFilter == null
+            ? true
+            : s.serviceName.toLowerCase() == _serviceNameFilter!.toLowerCase();
+        final matchCountry = _countryFilter == null
+            ? true
+            : s.country.toLowerCase() == _countryFilter!.toLowerCase();
+        return matchName && matchCountry;
+      });
+      return hasMatchingService;
+    }).toList();
+  }
+
+  // Old: Core filtering algorithm; applies 0, 1, or 2 filters (AND logic)
   List<ServiceModel> filteredServicesFor(ConsultantProfileModel c) {
     return c.services.where((s) {
       final matchName = _serviceNameFilter == null

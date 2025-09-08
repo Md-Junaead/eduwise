@@ -151,7 +151,7 @@ class ConsultantCard extends StatelessWidget {
                       ),
                     );
                   },
-                  child: const Text("Service Request"),
+                  child: const Text("View Profile"),
                 ),
               ],
             ),
