@@ -41,7 +41,7 @@ dependencies:
   geolocator: ^14.0.2
 
   # 📑 File & Reports
-  # file_picker: ^10.3.2
+  file_picker: ^10.3.2
   pdf: ^3.11.0
   open_filex: ^4.5.0
   country_picker: ^2.0.27

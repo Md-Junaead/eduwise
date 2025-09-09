@@ -14,4 +14,5 @@ class RoutesName {
   // Studen Portal
   static const String studentProfileScreen = 'StudentProfileScreen';
   static const String studentChoiceScreen = 'StudentChoiceScreen';
+  static const String studentHEScreen = 'StudentHEScreen';
 }
