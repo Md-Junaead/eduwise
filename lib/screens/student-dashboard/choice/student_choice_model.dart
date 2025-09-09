@@ -1,4 +1,5 @@
 // 📌 Data Model for StudentChoice
+/// Data Structure: Plain Object Model (used in RxList)
 class StudentChoice {
   final String service;
   final String country;
