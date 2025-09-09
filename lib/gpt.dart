@@ -43,3 +43,46 @@ task:
 1-3 is very importent, make sure you follow properly
 
 */
+
+
+
+/*
+
+Select Service
+Select a Service
+Your Preferred Country
+Write Country Name
+Your Preferred Instituttion
+Write Instituttion/University Name
+Your Preferred Subject
+Write Subject Name
+Your Prefered Session/Year
+Date Input
+Your Budget
+Write Your Budget (BDT)
+
+Buttons:
+Clear
+Save
+
+task:
+name: StudenChoice (Every name should start with Studen, Because i have 3 type of role (Student, Consultand, Default))
+i want to create a form where studen will submit data on flutter
+create demo model to input or update data
+i don't wanna get any overflow issue, so make sure there is no overflow (Make it render or overflow hidden or use ()....) to not getting overflow issue)
+Must use Algorithem & data structure for better performance
+use provider for state management
+must require modern, professional & attractive design
+Use icon, color red
+Make it responsibel for all device
+font & icons size, width, color
+give your design & develop a score out of 100
+comment the code for better understand
+develop it as section so i can reuse it if i requre anywher else
+tell me what you did
+
+
+
+this screen name is StudenChoice no home or main.dart require
+this will be a simple screen on my app update code for that
+*/
