@@ -3,6 +3,7 @@ import 'package:eduwise/screens/default/all-consultant/demo_consultants.dart';
 import 'package:eduwise/screens/default/consultant-profile/con_provider_model.dart';
 import 'package:eduwise/screens/student-dashboard/choice/student_choice_controller.dart';
 import 'package:eduwise/screens/student-dashboard/consultant/stu_cons_cont.dart';
+import 'package:eduwise/screens/student-dashboard/dashboard/stu_db_contruller.dart';
 import 'package:eduwise/screens/student-dashboard/qualification/file-upload/student_document_controller.dart';
 import 'package:eduwise/screens/student-dashboard/qualification/student-academic/stu_aca_contruller.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,7 @@ class AppBindings extends Bindings {
     Get.put(StudentChoiceController());
     Get.put(StudentDocumentController());
     Get.put(StudentAcademicController);
+    Get.put(StudentDashboardController);
 
     // Register StudentConsultantController with all consultants
     Get.put(
