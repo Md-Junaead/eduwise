@@ -44,204 +44,293 @@ class _StudentAcademicFormState extends State<StudentAcademicForm> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Student Academic Info"),
+        title: const Text("Academic Information"),
         backgroundColor: TColors.secondary,
+        elevation: 2,
       ),
+
+      /// ✅ Modern Save button at bottom
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.all(16),
+        child: ElevatedButton.icon(
+          onPressed: () {
+            if (_formKey.currentState!.validate()) {
+              // 🔹 Collect all data here before saving
+              Get.snackbar(
+                "Success",
+                "Academic Information Saved!",
+                backgroundColor: Colors.green,
+                colorText: Colors.white,
+                snackPosition: SnackPosition.BOTTOM,
+              );
+            }
+          },
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(
+              vertical: 12,
+            ), // 🔹 updated (smaller height)
+            backgroundColor: TColors.secondary,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                10,
+              ), // 🔹 updated (slightly smaller radius)
+            ),
+            elevation: 3, // 🔹 updated
+          ),
+          icon: const Icon(
+            Icons.save,
+            size: 18,
+            color: Colors.white,
+          ), // 🔹 updated smaller icon
+          label: const Text(
+            "Save Academic Info",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+            ), // 🔹 updated smaller text
+          ),
+        ),
+      ),
+
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(14), // 🔹 updated
           child: Form(
             key: _formKey,
             child: Column(
               children: [
                 /// ----------------- Academic Status -----------------
-                DropdownButtonFormField<String>(
-                  value: selectedAcademicStatus,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.school, color: Colors.red),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
+                _sectionCard(
+                  child: DropdownButtonFormField<String>(
+                    value: selectedAcademicStatus,
+                    decoration: _inputDecoration(
+                      "Select Academic Status",
+                      Icons.school,
                     ),
-                    hintText: "Select Academic Status",
+                    items: ["Under Graduate", "Post Graduate"]
+                        .map(
+                          (e) => DropdownMenuItem(
+                            value: e,
+                            child: Text(
+                              e,
+                              style: const TextStyle(
+                                fontSize: 13,
+                              ), // 🔹 updated
+                            ),
+                          ),
+                        )
+                        .toList(),
+                    onChanged: (v) {
+                      setState(() {
+                        selectedAcademicStatus = v;
+                        selectedMedium = null;
+                      });
+                    },
+                    icon: const Icon(
+                      Icons.arrow_drop_down,
+                      size: 18,
+                    ), // 🔹 updated
                   ),
-                  items: ["Under Graduate", "Post Graduate"]
-                      .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-                      .toList(),
-                  onChanged: (v) {
-                    setState(() {
-                      selectedAcademicStatus = v;
-                      selectedMedium = null;
-                    });
-                  },
                 ),
-                const SizedBox(height: 16),
 
                 /// ----------------- Post Graduate: Graduation Info -----------------
                 if (selectedAcademicStatus == "Post Graduate") ...[
-                  const Text(
-                    "Your Graduation Info",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  _sectionHeader("🎓 Your Graduation Info"),
+                  _sectionCard(
+                    child: Column(
+                      children: [
+                        _buildField(
+                          graduationTitleController,
+                          "Graduation Title",
+                          Icons.workspace_premium,
+                        ),
+                        const SizedBox(height: 6),
+                        _buildField(
+                          graduationGradeController,
+                          "Grade / CGPA",
+                          Icons.grade,
+                        ),
+                        const SizedBox(height: 6),
+                        _buildField(
+                          graduationDurationController,
+                          "Duration",
+                          Icons.timelapse,
+                        ),
+                        const SizedBox(height: 6),
+                        _buildField(
+                          graduationDeptController,
+                          "Department / Subject",
+                          Icons.menu_book,
+                        ),
+                        const SizedBox(height: 6),
+                        _buildDatePicker("Start Date", graduationStartDate, (
+                          picked,
+                        ) {
+                          setState(() => graduationStartDate = picked);
+                        }),
+                        const SizedBox(height: 6),
+                        _buildDatePicker("End Date", graduationEndDate, (
+                          picked,
+                        ) {
+                          setState(() => graduationEndDate = picked);
+                        }),
+                        const SizedBox(height: 6),
+                        _fileUploadPlaceholder(
+                          "Graduation Certificate",
+                          "graduation",
+                          docController,
+                        ),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 12),
-                  _buildField(
-                    graduationTitleController,
-                    "Graduation Title",
-                    Icons.title,
-                  ),
-                  const SizedBox(height: 8),
-                  _buildField(
-                    graduationGradeController,
-                    "Grade/CGPA",
-                    Icons.grade,
-                  ),
-                  const SizedBox(height: 8),
-                  _buildField(
-                    graduationDurationController,
-                    "Duration",
-                    Icons.timelapse,
-                  ),
-                  const SizedBox(height: 8),
-                  _buildField(
-                    graduationDeptController,
-                    "Department/Subject",
-                    Icons.book,
-                  ),
-                  const SizedBox(height: 8),
-                  _buildDatePicker("Start Date", graduationStartDate, (picked) {
-                    setState(() => graduationStartDate = picked);
-                  }),
-                  const SizedBox(height: 8),
-                  _buildDatePicker("End Date", graduationEndDate, (picked) {
-                    setState(() => graduationEndDate = picked);
-                  }),
-                  const SizedBox(height: 8),
-
-                  /// ✅ Independent graduation file upload
-                  _fileUploadPlaceholder(
-                    "Graduation Certificate",
-                    "graduation",
-                    docController,
-                  ),
-                  const SizedBox(height: 20),
                 ],
 
                 /// ----------------- Medium Dropdown -----------------
                 if (selectedAcademicStatus != null) ...[
-                  DropdownButtonFormField<String>(
-                    value: selectedMedium,
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.language, color: Colors.red),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                  _sectionHeader("🌐 Select Medium"),
+                  _sectionCard(
+                    child: DropdownButtonFormField<String>(
+                      value: selectedMedium,
+                      decoration: _inputDecoration(
+                        "Select Medium",
+                        Icons.language,
                       ),
-                      hintText: "Select Medium",
+                      items:
+                          ["Bangla Medium", "English Medium", "Madrasha Medium"]
+                              .map(
+                                (e) => DropdownMenuItem(
+                                  value: e,
+                                  child: Text(
+                                    e,
+                                    style: const TextStyle(
+                                      fontSize: 13,
+                                    ), // 🔹 updated
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                      onChanged: (v) => setState(() => selectedMedium = v),
+                      icon: const Icon(
+                        Icons.arrow_drop_down,
+                        size: 18,
+                      ), // 🔹 updated
                     ),
-                    items:
-                        ["Bangla Medium", "English Medium", "Madrasha Medium"]
-                            .map(
-                              (e) => DropdownMenuItem(value: e, child: Text(e)),
-                            )
-                            .toList(),
-                    onChanged: (v) => setState(() => selectedMedium = v),
                   ),
-                  const SizedBox(height: 16),
                 ],
 
                 /// ----------------- Medium Specific Forms -----------------
                 if (selectedMedium == "Bangla Medium") ...[
-                  const Text(
-                    "HSC Result (GPA)",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  _sectionHeader("📑 HSC Result"),
+                  _sectionCard(
+                    child: Column(
+                      children: [
+                        _buildField(
+                          TextEditingController(),
+                          "Enter Your HSC Grade",
+                          Icons.grade,
+                        ),
+                        const SizedBox(height: 10), // 🔹 updated
+                        _fileUploadPlaceholder(
+                          "HSC Certificate",
+                          "hsc",
+                          docController,
+                        ),
+                      ],
+                    ),
                   ),
-                  _buildField(
-                    TextEditingController(),
-                    "Enter Your HSC Grade",
-                    Icons.grade,
-                  ),
-                  _fileUploadPlaceholder(
-                    "HSC Certificate",
-                    "hsc",
-                    docController,
-                  ),
-                  const SizedBox(height: 12),
-
-                  const Text(
-                    "SSC Result (GPA)",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  _buildField(
-                    TextEditingController(),
-                    "Enter Your SSC Grade",
-                    Icons.grade,
-                  ),
-                  _fileUploadPlaceholder(
-                    "SSC Certificate",
-                    "ssc",
-                    docController,
+                  _sectionHeader("📑 SSC Result"),
+                  _sectionCard(
+                    child: Column(
+                      children: [
+                        _buildField(
+                          TextEditingController(),
+                          "Enter Your SSC Grade",
+                          Icons.grade,
+                        ),
+                        const SizedBox(height: 10), // 🔹 updated
+                        _fileUploadPlaceholder(
+                          "SSC Certificate",
+                          "ssc",
+                          docController,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
                 if (selectedMedium == "English Medium") ...[
-                  const Text(
-                    "O Level Result",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  _sectionHeader("📑 O Level Result"),
+                  _sectionCard(
+                    child: Column(
+                      children: [
+                        _buildField(
+                          TextEditingController(),
+                          "Enter Your O Level Result",
+                          Icons.grade,
+                        ),
+                        const SizedBox(height: 10), // 🔹 updated
+                        _fileUploadPlaceholder(
+                          "O Level Certificate",
+                          "oLevel",
+                          docController,
+                        ),
+                      ],
+                    ),
                   ),
-                  _buildField(
-                    TextEditingController(),
-                    "Enter Your O Level Result",
-                    Icons.grade,
-                  ),
-                  _fileUploadPlaceholder(
-                    "O Level Certificate",
-                    "oLevel",
-                    docController,
-                  ),
-                  const SizedBox(height: 12),
-
-                  const Text(
-                    "A Level Result",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  _buildField(
-                    TextEditingController(),
-                    "Enter Your A Level Result",
-                    Icons.grade,
-                  ),
-                  _fileUploadPlaceholder(
-                    "A Level Certificate",
-                    "aLevel",
-                    docController,
+                  _sectionHeader("📑 A Level Result"),
+                  _sectionCard(
+                    child: Column(
+                      children: [
+                        _buildField(
+                          TextEditingController(),
+                          "Enter Your A Level Result",
+                          Icons.grade,
+                        ),
+                        const SizedBox(height: 10), // 🔹 updated
+                        _fileUploadPlaceholder(
+                          "A Level Certificate",
+                          "aLevel",
+                          docController,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
                 if (selectedMedium == "Madrasha Medium") ...[
-                  const Text(
-                    "Dakhil Result",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  _sectionHeader("📑 Dakhil Result"),
+                  _sectionCard(
+                    child: Column(
+                      children: [
+                        _buildField(
+                          TextEditingController(),
+                          "Enter Your Dakhil Result",
+                          Icons.grade,
+                        ),
+                        const SizedBox(height: 10), // 🔹 updated
+                        _fileUploadPlaceholder(
+                          "Dakhil Certificate",
+                          "dakhil",
+                          docController,
+                        ),
+                      ],
+                    ),
                   ),
-                  _buildField(
-                    TextEditingController(),
-                    "Enter Your Dakhil Result",
-                    Icons.grade,
-                  ),
-                  _fileUploadPlaceholder(
-                    "Dakhil Certificate",
-                    "dakhil",
-                    docController,
-                  ),
-                  const SizedBox(height: 12),
-
-                  const Text(
-                    "Alim Result",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  _buildField(
-                    TextEditingController(),
-                    "Enter Your Alim Result",
-                    Icons.grade,
-                  ),
-                  _fileUploadPlaceholder(
-                    "Alim Certificate",
-                    "alim",
-                    docController,
+                  _sectionHeader("📑 Alim Result"),
+                  _sectionCard(
+                    child: Column(
+                      children: [
+                        _buildField(
+                          TextEditingController(),
+                          "Enter Your Alim Result",
+                          Icons.grade,
+                        ),
+                        const SizedBox(height: 10), // 🔹 updated
+                        _fileUploadPlaceholder(
+                          "Alim Certificate",
+                          "alim",
+                          docController,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ],
@@ -260,11 +349,8 @@ class _StudentAcademicFormState extends State<StudentAcademicForm> {
   ) {
     return TextFormField(
       controller: controller,
-      decoration: InputDecoration(
-        prefixIcon: Icon(icon, color: Colors.red),
-        hintText: hint,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-      ),
+      style: const TextStyle(fontSize: 13), // 🔹 updated
+      decoration: _inputDecoration(hint, icon),
     );
   }
 
@@ -285,15 +371,12 @@ class _StudentAcademicFormState extends State<StudentAcademicForm> {
         if (picked != null) onPicked(picked);
       },
       child: InputDecorator(
-        decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.calendar_today, color: Colors.red),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-          hintText: label,
-        ),
+        decoration: _inputDecoration(label, Icons.calendar_today),
         child: Text(
           date == null
               ? label
               : "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
+          style: const TextStyle(fontSize: 13), // 🔹 updated
         ),
       ),
     );
@@ -305,56 +388,148 @@ class _StudentAcademicFormState extends State<StudentAcademicForm> {
     String key,
     StudentDocumentController docController,
   ) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 6),
-        Obx(() {
-          final fileName = academicFiles[key]!.value;
-          return Row(
+    return Obx(() {
+      final fileName = academicFiles[key]!.value;
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+            ), // 🔹 updated
+          ),
+          const SizedBox(height: 6),
+          Row(
             children: [
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 12,
+                    vertical: 10, // 🔹 updated
                     horizontal: 10,
                   ),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey.shade400),
+                    color: Colors.grey.shade100,
+                    border: Border.all(color: Colors.grey.shade300),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text(fileName ?? "No file chosen"),
+                  child: Text(
+                    fileName ?? "No file chosen",
+                    style: const TextStyle(fontSize: 12), // 🔹 updated
+                  ),
                 ),
               ),
-              const SizedBox(width: 8),
-              ElevatedButton(
+              const SizedBox(width: 6), // 🔹 updated
+              OutlinedButton.icon(
                 onPressed: () async {
                   await docController.pickFiles();
                   if (docController.uploadedFiles.isNotEmpty) {
-                    // ✅ Only store last picked file name for this key
                     final pickedFile = docController.uploadedFiles.last.name;
                     academicFiles[key]!.value = pickedFile;
-
                     Get.snackbar(
-                      "Info",
+                      "Upload Successful",
                       "$label uploaded",
                       snackPosition: SnackPosition.BOTTOM,
+                      backgroundColor: Colors.blueAccent,
+                      colorText: Colors.white,
                     );
                   }
                 },
-                style: ElevatedButton.styleFrom(
+                icon: const Icon(
+                  Icons.upload_file,
+                  size: 16,
+                  color: Colors.white,
+                ), // 🔹 updated
+                label: const Text(
+                  "Upload",
+                  style: TextStyle(fontSize: 12),
+                ), // 🔹 updated
+                style: OutlinedButton.styleFrom(
                   backgroundColor: TColors.secondary,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 10, // 🔹 updated
+                    horizontal: 12, // 🔹 updated
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8), // 🔹 updated
+                  ),
                 ),
-                child: const Text("Upload"),
               ),
             ],
-          );
-        }),
-      ],
+          ),
+        ],
+      );
+    });
+  }
+
+  /// ----------------- Section Header -----------------
+  Widget _sectionHeader(String title) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10), // 🔹 updated
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          title,
+          style: const TextStyle(
+            fontSize: 14, // 🔹 updated
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// ----------------- Section Card -----------------
+  Widget _sectionCard({required Widget child}) {
+    return Card(
+      elevation: 2, // 🔹 updated
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ), // 🔹 updated
+      margin: const EdgeInsets.symmetric(vertical: 5), // 🔹 updated
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: child,
+      ), // 🔹 updated
+    );
+  }
+
+  /// ----------------- Input Decoration -----------------
+  InputDecoration _inputDecoration(String hint, IconData icon) {
+    return InputDecoration(
+      prefixIcon: Icon(icon, size: 18, color: TColors.secondary), // 🔹 updated
+      prefixIconConstraints: const BoxConstraints(
+        minWidth: 36,
+        minHeight: 36,
+      ), // 🔹 updated
+      hintText: hint,
+      hintStyle: const TextStyle(
+        fontSize: 13,
+        color: Colors.grey,
+      ), // 🔹 updated
+      contentPadding: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 12,
+      ), // 🔹 updated
+      filled: true,
+      fillColor: Colors.grey.shade50,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+      ), // 🔹 updated
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10), // 🔹 updated
+        borderSide: BorderSide(color: Colors.grey.shade300),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10), // 🔹 updated
+        borderSide: BorderSide(
+          color: TColors.secondary,
+          width: 1.5,
+        ), // 🔹 updated
+      ),
     );
   }
 }
