@@ -16,4 +16,5 @@ class RoutesName {
   static const String studentChoiceScreen = 'StudentChoiceScreen';
   static const String studentHEScreen = 'StudentHEScreen';
   static const String studentAcademicScreen = 'StudentAcademicScreen';
+  static const String studentConsultantScreen = 'StudentConsultantScreen';
 }

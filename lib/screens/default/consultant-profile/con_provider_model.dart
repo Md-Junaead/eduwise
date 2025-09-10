@@ -57,7 +57,7 @@ class ConsultantProfileProvider extends ChangeNotifier {
       name: "Dr. Sarah Khan",
       imageUrl: "https://i.pravatar.cc/300?img=1",
       address: "Dhaka, Bangladesh",
-      bio: "Education Consultant with 10+ years experience",
+      bio: "10 years in Education",
       rating: 4.8,
       experience: [
         "10 years in Education",
