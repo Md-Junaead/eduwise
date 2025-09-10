@@ -26,14 +26,16 @@ class _StudentAcademicFormState extends State<StudentAcademicForm> {
   DateTime? graduationStartDate;
   DateTime? graduationEndDate;
 
-  /// ✅ File placeholders
-  String? hscFile;
-  String? sscFile;
-  String? oLevelFile;
-  String? aLevelFile;
-  String? dakhilFile;
-  String? alimFile;
-  String? graduationFile;
+  /// ✅ Academic files map (each field holds its own file name)
+  final Map<String, RxnString> academicFiles = {
+    "hsc": RxnString(),
+    "ssc": RxnString(),
+    "oLevel": RxnString(),
+    "aLevel": RxnString(),
+    "dakhil": RxnString(),
+    "alim": RxnString(),
+    "graduation": RxnString(),
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -113,10 +115,11 @@ class _StudentAcademicFormState extends State<StudentAcademicForm> {
                     setState(() => graduationEndDate = picked);
                   }),
                   const SizedBox(height: 8),
+
+                  /// ✅ Independent graduation file upload
                   _fileUploadPlaceholder(
                     "Graduation Certificate",
-                    graduationFile,
-                    (file) => setState(() => graduationFile = file),
+                    "graduation",
                     docController,
                   ),
                   const SizedBox(height: 20),
@@ -157,8 +160,7 @@ class _StudentAcademicFormState extends State<StudentAcademicForm> {
                   ),
                   _fileUploadPlaceholder(
                     "HSC Certificate",
-                    hscFile,
-                    (file) => setState(() => hscFile = file),
+                    "hsc",
                     docController,
                   ),
                   const SizedBox(height: 12),
@@ -174,8 +176,7 @@ class _StudentAcademicFormState extends State<StudentAcademicForm> {
                   ),
                   _fileUploadPlaceholder(
                     "SSC Certificate",
-                    sscFile,
-                    (file) => setState(() => sscFile = file),
+                    "ssc",
                     docController,
                   ),
                 ],
@@ -191,8 +192,7 @@ class _StudentAcademicFormState extends State<StudentAcademicForm> {
                   ),
                   _fileUploadPlaceholder(
                     "O Level Certificate",
-                    oLevelFile,
-                    (file) => setState(() => oLevelFile = file),
+                    "oLevel",
                     docController,
                   ),
                   const SizedBox(height: 12),
@@ -208,8 +208,7 @@ class _StudentAcademicFormState extends State<StudentAcademicForm> {
                   ),
                   _fileUploadPlaceholder(
                     "A Level Certificate",
-                    aLevelFile,
-                    (file) => setState(() => aLevelFile = file),
+                    "aLevel",
                     docController,
                   ),
                 ],
@@ -225,8 +224,7 @@ class _StudentAcademicFormState extends State<StudentAcademicForm> {
                   ),
                   _fileUploadPlaceholder(
                     "Dakhil Certificate",
-                    dakhilFile,
-                    (file) => setState(() => dakhilFile = file),
+                    "dakhil",
                     docController,
                   ),
                   const SizedBox(height: 12),
@@ -242,8 +240,7 @@ class _StudentAcademicFormState extends State<StudentAcademicForm> {
                   ),
                   _fileUploadPlaceholder(
                     "Alim Certificate",
-                    alimFile,
-                    (file) => setState(() => alimFile = file),
+                    "alim",
                     docController,
                   ),
                 ],
@@ -305,8 +302,7 @@ class _StudentAcademicFormState extends State<StudentAcademicForm> {
   /// ----------------- File Upload Placeholder -----------------
   Widget _fileUploadPlaceholder(
     String label,
-    String? file,
-    Function(String) onFilePicked,
+    String key,
     StudentDocumentController docController,
   ) {
     return Column(
@@ -317,8 +313,9 @@ class _StudentAcademicFormState extends State<StudentAcademicForm> {
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 6),
-        Obx(
-          () => Row(
+        Obx(() {
+          final fileName = academicFiles[key]!.value;
+          return Row(
             children: [
               Expanded(
                 child: Container(
@@ -330,11 +327,7 @@ class _StudentAcademicFormState extends State<StudentAcademicForm> {
                     border: Border.all(color: Colors.grey.shade400),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text(
-                    docController.uploadedFiles.isEmpty
-                        ? (file ?? "No file chosen")
-                        : docController.uploadedFiles.last.name,
-                  ),
+                  child: Text(fileName ?? "No file chosen"),
                 ),
               ),
               const SizedBox(width: 8),
@@ -342,8 +335,10 @@ class _StudentAcademicFormState extends State<StudentAcademicForm> {
                 onPressed: () async {
                   await docController.pickFiles();
                   if (docController.uploadedFiles.isNotEmpty) {
+                    // ✅ Only store last picked file name for this key
                     final pickedFile = docController.uploadedFiles.last.name;
-                    onFilePicked(pickedFile);
+                    academicFiles[key]!.value = pickedFile;
+
                     Get.snackbar(
                       "Info",
                       "$label uploaded",
@@ -357,8 +352,8 @@ class _StudentAcademicFormState extends State<StudentAcademicForm> {
                 child: const Text("Upload"),
               ),
             ],
-          ),
-        ),
+          );
+        }),
       ],
     );
   }
