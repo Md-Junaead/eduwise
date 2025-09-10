@@ -1,4 +1,5 @@
 import 'package:eduwise/screens/student-dashboard/qualification/s_h_e_view.dart';
+import 'package:eduwise/screens/student-dashboard/qualification/student-academic/stu_aca_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:eduwise/configs/routes/routes_name.dart';
@@ -53,6 +54,9 @@ class Routes {
 
       case RoutesName.studentHEScreen:
         return MaterialPageRoute(builder: (context) => StudentHEScreen());
+
+      case RoutesName.studentAcademicScreen:
+        return MaterialPageRoute(builder: (context) => StudentAcademicScreen());
 
       default:
         return MaterialPageRoute(
