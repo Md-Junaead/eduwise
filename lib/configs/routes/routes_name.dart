@@ -25,4 +25,5 @@ class RoutesName {
   static const String consultantServiceCreateView =
       'ConsultantServiceCreateView';
   static const String consultantEducationScreen = 'ConsultantEducationScreen';
+  static const String consultantDashboardView = 'ConsultantDashboardView';
 }
