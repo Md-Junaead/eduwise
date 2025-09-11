@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Eduwise',
         theme: AppTheme.light,
-        initialRoute: RoutesName.consultantEducationScreen,
+        initialRoute: RoutesName.bottomNav,
         onGenerateRoute: Routes.generateRoute,
 
         // ✅ Now super clean: just point to AppBindings
