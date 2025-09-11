@@ -22,4 +22,6 @@ class RoutesName {
   // Consultunt Profile
   static const String consultantWorkExperienceScreen =
       'ConsultantWorkExperienceScreen';
+  static const String consultantServiceCreateView =
+      'ConsultantServiceCreateView';
 }
