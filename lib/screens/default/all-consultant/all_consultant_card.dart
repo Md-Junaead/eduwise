@@ -92,14 +92,14 @@ class ConsultantCard extends StatelessWidget {
             // ✅ Rating + Patient Stories row
             Row(
               children: [
-                const Icon(Icons.thumb_up, size: 16, color: TColors.primary),
+                const Icon(Icons.thumb_up, size: 16, color: TColors.secondary),
                 const SizedBox(width: 4),
                 Text(
                   "${(c.rating * 20).toStringAsFixed(0)}%", // Example: rating 4.5 → 90%
                   style: const TextStyle(fontSize: 12),
                 ),
                 const SizedBox(width: 12),
-                const Icon(Icons.people, size: 16, color: Colors.grey),
+                const Icon(Icons.people, size: 16, color: TColors.secondary),
                 const SizedBox(width: 4),
                 Text(
                   "${c.experience.length * 10} Patient Stories", // Example logic
@@ -134,7 +134,7 @@ class ConsultantCard extends StatelessWidget {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: TColors.secondary,
+                    backgroundColor: TColors.primary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),

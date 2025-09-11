@@ -1,3 +1,4 @@
+import 'package:eduwise/configs/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -11,7 +12,8 @@ class TopSection extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 80),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          colors: [Color(0xFFE50405), Color(0xFF7A1C1C)],
+          colors: [TColors.primary, TColors.primaryLight],
+          // colors: [Color(0xFFE50405), Color(0xFF7A1C1C)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),

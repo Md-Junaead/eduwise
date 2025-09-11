@@ -17,7 +17,7 @@ class AppHeader extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: TColors.secondary, // 🔴 Red header background
+      backgroundColor: TColors.primary, // 🔴 Red header background
       elevation: 2,
       centerTitle: false,
       titleSpacing: 0,
