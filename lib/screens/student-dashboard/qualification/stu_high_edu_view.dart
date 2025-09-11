@@ -2,7 +2,7 @@ import 'package:eduwise/configs/constants/colors.dart';
 import 'package:eduwise/screens/student-dashboard/profile/student_profile_provider.dart';
 import 'package:eduwise/screens/student-dashboard/profile/widget/education_section.dart';
 import 'package:eduwise/screens/student-dashboard/profile/widget/section_frame.dart';
-import 'package:eduwise/screens/student-dashboard/qualification/file-upload/s_h_e_file.dart';
+import 'package:eduwise/screens/student-dashboard/qualification/file-upload/stu_high_edu_file.dart';
 import 'package:eduwise/screens/student-dashboard/student__theme.dart';
 import 'package:eduwise/widget/drawer.dart';
 import 'package:flutter/material.dart';

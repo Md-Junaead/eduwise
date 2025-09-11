@@ -152,10 +152,12 @@ class _CountrySectionState extends State<CountrySection> {
                                       ),
                                     ),
                                     const SizedBox(width: 6),
-                                    CountryFlag.fromCountryCode(
-                                      card["countryCode"]!,
+                                    SizedBox(
                                       height: 18,
                                       width: 25,
+                                      child: CountryFlag.fromCountryCode(
+                                        card["countryCode"]!,
+                                      ),
                                     ),
                                   ],
                                 ),

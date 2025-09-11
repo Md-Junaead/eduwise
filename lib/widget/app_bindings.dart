@@ -1,4 +1,5 @@
 // lib/configs/core/app_bindings.dart
+import 'package:eduwise/screens/consultant-dashboard/experience/con_work_exp_ctrl.dart';
 import 'package:eduwise/screens/default/all-consultant/demo_consultants.dart';
 import 'package:eduwise/screens/default/consultant-profile/con_provider_model.dart';
 import 'package:eduwise/screens/student-dashboard/choice/student_choice_controller.dart';
@@ -17,6 +18,7 @@ class AppBindings extends Bindings {
     Get.put(StudentDocumentController());
     Get.put(StudentAcademicController);
     Get.put(StudentDashboardController);
+    Get.put(ConsultantWorkExperienceController);
 
     // Register StudentConsultantController with all consultants
     Get.put(

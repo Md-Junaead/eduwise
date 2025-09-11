@@ -1,6 +1,7 @@
+import 'package:eduwise/screens/consultant-dashboard/experience/con_work_view.dart';
 import 'package:eduwise/screens/student-dashboard/consultant/stu_cons_view.dart';
 import 'package:eduwise/screens/student-dashboard/dashboard/stu_dboard_view.dart';
-import 'package:eduwise/screens/student-dashboard/qualification/s_h_e_view.dart';
+import 'package:eduwise/screens/student-dashboard/qualification/stu_high_edu_view.dart';
 import 'package:eduwise/screens/student-dashboard/qualification/student-academic/stu_aca_view.dart';
 import 'package:flutter/material.dart';
 
@@ -68,6 +69,13 @@ class Routes {
       case RoutesName.studentDashBoardScreen:
         return MaterialPageRoute(
           builder: (context) => StudentDashBoardScreen(),
+        );
+
+      // Consultunt Profile
+
+      case RoutesName.consultantWorkExperienceScreen:
+        return MaterialPageRoute(
+          builder: (context) => ConsultantWorkExperienceScreen(),
         );
 
       default:

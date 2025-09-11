@@ -1,6 +1,6 @@
 import 'package:eduwise/screens/default/consultant-profile/con_profile_view.dart';
 import 'package:eduwise/screens/default/home/home_screen.dart';
-import 'package:eduwise/screens/default/profile/profile_view.dart';
+import 'package:eduwise/screens/student-dashboard/dashboard/stu_dboard_view.dart';
 import 'package:flutter/material.dart';
 
 class BottomNav extends StatefulWidget {
@@ -18,7 +18,7 @@ class _BottomNavState extends State<BottomNav>
   final List<Widget> _screens = const [
     HomeScreen(), // index 0
     ConsultantProfileScreen(index: 0), // index 1
-    ProfileScreen(), // index 2
+    StudentDashBoardScreen(), // ✅ replaced ProfileScreen with StudentDashBoardScreen
   ];
 
   @override
@@ -55,7 +55,7 @@ class _BottomNavState extends State<BottomNav>
             selectedIndex: _currentIndex == 2 ? 1 : 0, // ✅ fix selection
             onDestinationSelected: (index) {
               // index 0 → Home
-              // index 1 → Profile
+              // index 1 → Student Dashboard (Profile)
               if (index == 0) setState(() => _currentIndex = 0);
               if (index == 1) setState(() => _currentIndex = 2);
             },

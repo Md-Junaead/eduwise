@@ -18,4 +18,8 @@ class RoutesName {
   static const String studentAcademicScreen = 'StudentAcademicScreen';
   static const String studentConsultantScreen = 'StudentConsultantScreen';
   static const String studentDashBoardScreen = 'StudentDashBoardScreen';
+
+  // Consultunt Profile
+  static const String consultantWorkExperienceScreen =
+      'ConsultantWorkExperienceScreen';
 }
