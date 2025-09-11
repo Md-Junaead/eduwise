@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eduwise/screens/student-dashboard/choice/student_choice_view.dart';
 import 'package:eduwise/screens/student-dashboard/consultant/stu_cons_view.dart';
 import 'package:eduwise/screens/student-dashboard/profile/profile_view.dart';
-import 'package:eduwise/screens/student-dashboard/qualification/stu_high_edu_view.dart';
+import 'package:eduwise/screens/student-dashboard/qualification/student-academic/stu_aca_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -31,7 +31,7 @@ class StudentDashBoardScreen extends StatelessWidget {
       {
         "title": "Qualification",
         "icon": Icons.school,
-        "destination": const StudentHEScreen(),
+        "destination": const StudentAcademicScreen(),
       },
       {"title": "Service", "icon": Icons.design_services, "destination": null},
       {
