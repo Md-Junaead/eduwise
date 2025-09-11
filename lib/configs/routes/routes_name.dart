@@ -24,4 +24,5 @@ class RoutesName {
       'ConsultantWorkExperienceScreen';
   static const String consultantServiceCreateView =
       'ConsultantServiceCreateView';
+  static const String consultantEducationScreen = 'ConsultantEducationScreen';
 }

@@ -1,4 +1,5 @@
 import 'package:eduwise/screens/consultant-dashboard/add-service/con_service_view.dart';
+import 'package:eduwise/screens/consultant-dashboard/educational-qualification/con_edu_qua_view.dart';
 import 'package:eduwise/screens/consultant-dashboard/experience/con_work_view.dart';
 import 'package:eduwise/screens/student-dashboard/consultant/stu_cons_view.dart';
 import 'package:eduwise/screens/student-dashboard/dashboard/stu_dboard_view.dart';
@@ -83,6 +84,13 @@ class Routes {
         return MaterialPageRoute(
           builder: (context) => ConsultantServiceCreateView(),
         );
+
+      case RoutesName.consultantEducationScreen:
+        return MaterialPageRoute(
+          builder: (context) => ConsultantEducationScreen(),
+        );
+
+      // Default Profile
 
       default:
         return MaterialPageRoute(
