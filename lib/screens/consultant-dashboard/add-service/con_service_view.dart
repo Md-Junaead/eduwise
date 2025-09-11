@@ -7,7 +7,6 @@ import 'package:eduwise/configs/constants/colors.dart';
 
 class ConsultantServiceCreateView extends StatelessWidget {
   ConsultantServiceCreateView({super.key});
-  // Initialize the controller here to fix the error
   final controller = Get.put(ConsultantServiceController());
 
   @override
@@ -16,47 +15,216 @@ class ConsultantServiceCreateView extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Your Published Services"),
         backgroundColor: TColors.secondary,
+        elevation: 4,
       ),
       body: Obx(
         () => controller.services.isEmpty
-            ? const Center(child: Text("No services published yet"))
+            ? const Center(
+                child: Text(
+                  "No services published yet",
+                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                ),
+              )
             : ListView.builder(
+                padding: const EdgeInsets.all(12),
                 itemCount: controller.services.length,
                 itemBuilder: (context, index) {
                   final service = controller.services[index];
-                  return Card(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 6,
+                  return Dismissible(
+                    key: Key(service.title + service.serviceType),
+                    background: Container(
+                      color: Colors.green,
+                      alignment: Alignment.centerLeft,
+                      padding: const EdgeInsets.only(left: 20),
+                      child: const Icon(Icons.edit, color: Colors.white),
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                    secondaryBackground: Container(
+                      color: Colors.red,
+                      alignment: Alignment.centerRight,
+                      padding: const EdgeInsets.only(right: 20),
+                      child: const Icon(Icons.delete, color: Colors.white),
                     ),
-                    child: ListTile(
-                      title: Text(
-                        service.title,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                    confirmDismiss: (direction) async {
+                      if (direction == DismissDirection.startToEnd) {
+                        // ---------------- Edit Action ----------------
+                        controller.tempServiceType.value = service.serviceType;
+                        controller.tempTitle.value = service.title;
+                        controller.tempDescription.value = service.description;
+                        controller.tempCountry.value = service.country;
+                        controller.tempSubject.value = service.subject;
+                        controller.tempCharge.value = service.charge.toInt();
+                        controller.tempDuration.value = service.duration;
+
+                        Get.to(() => ConsultantServiceCreateForm());
+                        return false; // Don't dismiss
+                      } else if (direction == DismissDirection.endToStart) {
+                        // ---------------- Delete Action ----------------
+                        bool confirmed =
+                            await Get.defaultDialog(
+                              title: "Delete Service",
+                              middleText:
+                                  "Are you sure you want to delete this service?",
+                              textConfirm: "Yes",
+                              textCancel: "No",
+                              confirmTextColor: Colors.white,
+                              onConfirm: () {
+                                controller.services.removeAt(index);
+                                Get.back(result: true);
+                              },
+                              onCancel: () => Get.back(result: false),
+                            ) ??
+                            false;
+                        return confirmed;
+                      }
+                      return false;
+                    },
+                    child: Card(
+                      elevation: 4,
+                      shadowColor: Colors.grey.shade200,
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 8,
                       ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Type: ${service.serviceType}"),
-                          Text("Description: ${service.description}"),
-                          Text("Country: ${service.country}"),
-                          Text("Subject: ${service.subject}"),
-                          Text("Charge: \$${service.charge}"),
-                          Text("Duration: ${service.duration}"),
-                        ],
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // ---------------- Service Title ----------------
+                            Text(
+                              service.title,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            // ---------------- Type & Charge Row ----------------
+                            Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 6,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: TColors.secondary.withOpacity(0.15),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Text(
+                                    service.serviceType,
+                                    style: const TextStyle(
+                                      color: TColors.secondary,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 6,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.green.withOpacity(0.15),
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Text(
+                                    "\$${service.charge.toInt()}",
+                                    style: const TextStyle(
+                                      color: Colors.green,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 12),
+                            // ---------------- Description ----------------
+                            Text(
+                              service.description,
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                            const Divider(height: 20, thickness: 1),
+                            // ---------------- Country & Subject ----------------
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        "Country",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                      Text(
+                                        service.country,
+                                        style: const TextStyle(fontSize: 13),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text(
+                                        "Subject",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                      Text(
+                                        service.subject,
+                                        style: const TextStyle(fontSize: 13),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 8),
+                            // ---------------- Duration ----------------
+                            Row(
+                              children: [
+                                const Icon(
+                                  Icons.access_time,
+                                  size: 14,
+                                  color: Colors.grey,
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  service.duration,
+                                  style: const TextStyle(
+                                    fontSize: 13,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );
                 },
               ),
       ),
-      // ---------------- Floating Action Button ----------------
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          // Navigate to the create form to add a new service
           Get.to(() => ConsultantServiceCreateForm());
         },
         icon: const Icon(Icons.add),
@@ -66,52 +234,3 @@ class ConsultantServiceCreateView extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-/*
-
-
-
-Create Your Service
-Select Your Service (Drop Down)
-Assessment
-File Processing Service
-Visa Processing Service
-Corresponding Service
-Ticketing update Service
-Features Service
-
-
-Title of Your Service - heading
-Enter the title of service - Input
-Description of Your Service - heading
-Enter the Description of your Service - Input
-Country of your Assessment - heading
-Enter the Country name you want to Assess - Input
-Subject of your Assessment - heading
-Enter the Subject about You Assess - Input
-Charge - heading
-Enter the Charge of your Assessment - Input
-Duration - heading
-Enter the time/days you will you will take - Input
-Publish - Button
-
-
-
-File Name: ConsultandServiceCreateForm, ConsultandServiceCreateView, ConsultandServiceCreateModel, ConsultandServiceCreateController (Corrent grammer or words) 
-
-Task:
-I am creating flutter app
-I need to create this form, Publish info and show them on ConsultandServiceCreateView
-Must use Algorithem, Data structure & GetX state management for properly managing state
-Make modern, Responsive & professional design, give your design score out of 100
-Add button should be as flowting action button
-tell me what you did
-comment the code for better understand
-
-
-*/

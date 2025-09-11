@@ -80,7 +80,7 @@ class ConsultantWorkExperienceController extends GetxController {
       ConsultantWorkExperience(
         organizationName: "ABC Tech Solutions",
         designation: "Software Consultant",
-        responsibilities: "Developed Flutter apps for clients",
+        responsibilities: "Developed Flutter apps",
         startDate: DateTime(2022, 1, 10),
         endDate: DateTime(2023, 8, 20),
         anyDocument: "project_doc.pdf",
