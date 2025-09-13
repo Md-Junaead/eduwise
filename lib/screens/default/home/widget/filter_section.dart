@@ -8,7 +8,8 @@ class FilterProvider extends ChangeNotifier {
   String? country;
   String? service;
   String? subject;
-  double? budget;
+  double? minBudget;
+  double? maxBudget;
 
   /// ✅ Keep controller here so it persists (cleaner state management)
   final TextEditingController countryController = TextEditingController();
@@ -34,8 +35,13 @@ class FilterProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setBudget(double value) {
-    budget = value;
+  void setMinBudget(double value) {
+    minBudget = value;
+    notifyListeners();
+  }
+
+  void setMaxBudget(double value) {
+    maxBudget = value;
     notifyListeners();
   }
 
@@ -218,17 +224,95 @@ class FilterFormCard extends StatelessWidget {
                     },
                   ),
 
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 20),
 
-                  /// Budget
-                  TextFormField(
-                    decoration: _inputDecoration("Budget"),
-                    keyboardType: TextInputType.number,
-                    onChanged: (value) {
-                      if (value.isNotEmpty) {
-                        provider.setBudget(double.tryParse(value) ?? 0);
-                      }
-                    },
+                  /// ✅ Modern Budget Range Section (Floating Label)
+                  Stack(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 20,
+                          horizontal: 12,
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey.shade400),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: SizedBox(
+                                height: 45,
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                    prefixIcon: const Icon(
+                                      Icons.attach_money,
+                                      size: 18,
+                                    ),
+                                    hintText: "Min",
+                                    contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 10,
+                                    ),
+                                    border: const OutlineInputBorder(),
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                  onChanged: (value) {
+                                    if (value.isNotEmpty) {
+                                      provider.setMinBudget(
+                                        double.tryParse(value) ?? 0,
+                                      );
+                                    }
+                                  },
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: SizedBox(
+                                height: 45,
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                    prefixIcon: const Icon(
+                                      Icons.attach_money,
+                                      size: 18,
+                                    ),
+                                    hintText: "Max",
+                                    contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 10,
+                                    ),
+                                    border: const OutlineInputBorder(),
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                  onChanged: (value) {
+                                    if (value.isNotEmpty) {
+                                      provider.setMaxBudget(
+                                        double.tryParse(value) ?? 0,
+                                      );
+                                    }
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Positioned(
+                        left: 16,
+                        top: 0,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          color: Colors.white,
+                          child: Text(
+                            "Budget Range",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey.shade800,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
 
                   const SizedBox(height: 25),
@@ -256,7 +340,11 @@ class FilterFormCard extends StatelessWidget {
                       onPressed: () {
                         if (provider.isValid()) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text("Searching...")),
+                            SnackBar(
+                              content: Text(
+                                "Searching with budget range: ${provider.minBudget ?? 0} - ${provider.maxBudget ?? 0}",
+                              ),
+                            ),
                           );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -437,104 +525,104 @@ class _SubjectPickerSheetState extends State<_SubjectPickerSheet> {
   @override
   Widget build(BuildContext context) {
     final bottom = MediaQuery.of(context).viewInsets.bottom;
+    final maxHeight = MediaQuery.of(context).size.height * 0.85;
 
     return SafeArea(
       top: false,
       child: Padding(
         padding: EdgeInsets.only(bottom: bottom),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 10, 16, 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              /// drag handle
-              Container(
-                width: 42,
-                height: 5,
-                margin: const EdgeInsets.only(bottom: 12),
-                decoration: BoxDecoration(
-                  color: Colors.black12,
-                  borderRadius: BorderRadius.circular(100),
-                ),
-              ),
-
-              /// Header row
-              Row(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: maxHeight),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 10, 16, 16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Expanded(
-                    child: Text(
-                      "Select ${widget.title}",
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
+                  Container(
+                    width: 42,
+                    height: 5,
+                    margin: const EdgeInsets.only(bottom: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.black12,
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          "Select ${widget.title}",
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () => Navigator.of(context).pop(),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  TextField(
+                    controller: _ctrl,
+                    autofocus: true,
+                    textInputAction: TextInputAction.search,
+                    decoration: InputDecoration(
+                      hintText: "Search ${widget.title}...",
+                      prefixIcon: const Icon(Icons.search),
+                      suffixIcon: _ctrl.text.isEmpty
+                          ? null
+                          : IconButton(
+                              icon: const Icon(Icons.clear),
+                              onPressed: () => _ctrl.clear(),
+                            ),
+                      filled: true,
+                      fillColor: Colors.grey.shade100,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                   ),
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () => Navigator.of(context).pop(),
+                  const SizedBox(height: 12),
+                  ConstrainedBox(
+                    constraints: const BoxConstraints(maxHeight: 420),
+                    child: _filtered.isEmpty
+                        ? const Center(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 24),
+                              child: Text("No results found"),
+                            ),
+                          )
+                        : ListView.separated(
+                            shrinkWrap: true,
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: _filtered.length,
+                            separatorBuilder: (_, __) =>
+                                Divider(height: 1, color: Colors.grey.shade300),
+                            itemBuilder: (context, i) {
+                              final item = _filtered[i];
+                              final selected = item == widget.selected;
+                              return ListTile(
+                                leading: Icon(
+                                  selected
+                                      ? Icons.radio_button_checked
+                                      : Icons.radio_button_off,
+                                ),
+                                title: _HighlightedMatchText(
+                                  text: item,
+                                  query: _ctrl.text,
+                                ),
+                                onTap: () => widget.onSelected(item),
+                              );
+                            },
+                          ),
                   ),
                 ],
               ),
-              const SizedBox(height: 8),
-
-              /// Search box
-              TextField(
-                controller: _ctrl,
-                autofocus: true,
-                textInputAction: TextInputAction.search,
-                decoration: InputDecoration(
-                  hintText: "Search ${widget.title}...",
-                  prefixIcon: const Icon(Icons.search),
-                  suffixIcon: _ctrl.text.isEmpty
-                      ? null
-                      : IconButton(
-                          icon: const Icon(Icons.clear),
-                          onPressed: () => _ctrl.clear(),
-                        ),
-                  filled: true,
-                  fillColor: Colors.grey.shade100,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 12),
-
-              /// Results
-              ConstrainedBox(
-                constraints: const BoxConstraints(maxHeight: 420),
-                child: _filtered.isEmpty
-                    ? const Center(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 24),
-                          child: Text("No results found"),
-                        ),
-                      )
-                    : ListView.separated(
-                        shrinkWrap: true,
-                        itemCount: _filtered.length,
-                        separatorBuilder: (_, __) =>
-                            Divider(height: 1, color: Colors.grey.shade300),
-                        itemBuilder: (context, i) {
-                          final item = _filtered[i];
-                          final selected = item == widget.selected;
-                          return ListTile(
-                            leading: Icon(
-                              selected
-                                  ? Icons.radio_button_checked
-                                  : Icons.radio_button_off,
-                            ),
-                            title: _HighlightedMatchText(
-                              text: item,
-                              query: _ctrl.text,
-                            ),
-                            onTap: () => widget.onSelected(item),
-                          );
-                        },
-                      ),
-              ),
-            ],
+            ),
           ),
         ),
       ),
