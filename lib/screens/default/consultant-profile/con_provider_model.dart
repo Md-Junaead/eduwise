@@ -157,7 +157,7 @@ class ConsultantProfileProvider extends ChangeNotifier {
       name: "Michael Lee",
       imageUrl: "https://i.pravatar.cc/300?img=4",
       address: "Sydney, Australia",
-      bio: "Career Advisor with focus on STEM fields",
+      bio: "STEM Career Advisor",
       rating: 4.5,
       experience: [
         "6 years in STEM Counselling",
@@ -251,7 +251,7 @@ class ConsultantProfileProvider extends ChangeNotifier {
       name: "Aisha Noor",
       imageUrl: "https://i.pravatar.cc/300?img=7",
       address: "Dubai, UAE",
-      bio: "Specialist in Middle East Study Programs",
+      bio: "Specialist in MEStudy Programs",
       rating: 4.7,
       experience: ["6 years in student placement", "Strong network in UAE"],
       skills: ["Gulf Universities", "Scholarship Guidance"],
@@ -277,35 +277,6 @@ class ConsultantProfileProvider extends ChangeNotifier {
       reviews: [
         "Helped me choose the right university!",
         "Friendly and helpful.",
-      ],
-    ),
-
-    ConsultantProfileModel(
-      name: "Daniel Kim",
-      imageUrl: "https://i.pravatar.cc/300?img=8",
-      address: "Seoul, South Korea",
-      bio: "Admissions Specialist for Asian Universities",
-      rating: 4.6,
-      experience: ["5 years in admissions", "Fluent in Korean & English"],
-      skills: ["Admissions", "Language Support"],
-      biography:
-          "Daniel helps international students with Asian university processes.",
-      portfolio: ["Seoul National University Event"],
-      services: const [
-        ServiceModel(
-          serviceName: "Ticketing update Service",
-          country: "South Korea",
-          flagUrl: "https://flagcdn.com/w20/kr.png",
-        ),
-        ServiceModel(
-          serviceName: "Visa Processing Service",
-          country: "South Korea",
-          flagUrl: "https://flagcdn.com/w20/kr.png",
-        ),
-      ],
-      reviews: [
-        "Made Korea admissions so easy!",
-        "Bilingual support is great.",
       ],
     ),
 

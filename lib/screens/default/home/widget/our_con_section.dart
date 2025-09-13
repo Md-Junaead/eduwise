@@ -137,7 +137,7 @@ class ConsultantSection extends StatelessWidget {
                         "See All",
                         style: TextStyle(
                           fontSize: 16,
-                          color: Colors.blue,
+                          color: TColors.primary,
                           decoration: TextDecoration.underline,
                         ),
                       ),

@@ -1,4 +1,3 @@
-// lib/screens/consultant-dashboard/education/consultant_education_screen.dart
 import 'package:eduwise/screens/consultant-dashboard/educational-qualification/con_edu_qua_ctrl.dart';
 import 'package:eduwise/screens/consultant-dashboard/educational-qualification/con_edu_qua_form.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,7 @@ class ConsultantEducationScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Educational Qualification"),
-        backgroundColor: TColors.secondary,
+        backgroundColor: TColors.primary,
       ),
       body: Obx(() {
         if (controller.educations.isEmpty) {
@@ -36,7 +35,7 @@ class ConsultantEducationScreen extends StatelessWidget {
                 child: const Icon(Icons.edit, color: Colors.white),
               ),
               secondaryBackground: Container(
-                color: Colors.red,
+                color: TColors.primary,
                 alignment: Alignment.centerRight,
                 padding: const EdgeInsets.only(right: 20),
                 child: const Icon(Icons.delete, color: Colors.white),
@@ -111,7 +110,7 @@ class ConsultantEducationScreen extends StatelessWidget {
                                 style: TextStyle(fontSize: 12),
                               ),
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: TColors.secondary,
+                                backgroundColor: TColors.primary,
                                 minimumSize: const Size(60, 32),
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 8,
@@ -133,7 +132,7 @@ class ConsultantEducationScreen extends StatelessWidget {
         onPressed: () => Get.to(() => ConsultantEducationForm()),
         icon: const Icon(Icons.add),
         label: const Text("Add Education"),
-        backgroundColor: TColors.secondary,
+        backgroundColor: TColors.primary,
       ),
     );
   }
@@ -153,24 +152,3 @@ class ConsultantEducationScreen extends StatelessWidget {
     );
   }
 }
-
-/*
-
-Add Your Educational Qualification - Title
-Title of Your Last Education - Headign
-Enter the title of Education - Input
-Result (Grade/GPA/CGPA) - Headign
-Grade/GPA/CGPA - Input
-Duration - Headign
-Duration (3 years/4 years) - Input
-Passing Year - Headign
---------- ----
-Institution - Headign
-Institution Name - Input
-Certificate/Document - Headign
-(Documents of the Certificate) - Input
-Save - Button
-
-
-
-*/

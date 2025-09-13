@@ -45,7 +45,7 @@ class _StudentAcademicFormState extends State<StudentAcademicForm> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Academic Information"),
-        backgroundColor: TColors.secondary,
+        backgroundColor: TColors.primary,
         elevation: 2,
       ),
 
@@ -69,7 +69,7 @@ class _StudentAcademicFormState extends State<StudentAcademicForm> {
             padding: const EdgeInsets.symmetric(
               vertical: 12,
             ), // 🔹 updated (smaller height)
-            backgroundColor: TColors.secondary,
+            backgroundColor: TColors.primary,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(
                 10,
@@ -446,7 +446,7 @@ class _StudentAcademicFormState extends State<StudentAcademicForm> {
                   style: TextStyle(fontSize: 12),
                 ), // 🔹 updated
                 style: OutlinedButton.styleFrom(
-                  backgroundColor: TColors.secondary,
+                  backgroundColor: TColors.primary,
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(
                     vertical: 10, // 🔹 updated

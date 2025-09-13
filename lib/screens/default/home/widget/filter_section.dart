@@ -573,13 +573,3 @@ class _HighlightedMatchText extends StatelessWidget {
     );
   }
 }
-
-
-
-
-/*
-
-Fix Overflow issue when keybord is open
-
-
-*/

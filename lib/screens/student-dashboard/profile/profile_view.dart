@@ -5,7 +5,6 @@ import 'package:eduwise/screens/student-dashboard/profile/widget/personal_detail
 import 'package:eduwise/screens/student-dashboard/profile/widget/profile_header.dart';
 import 'package:eduwise/screens/student-dashboard/profile/widget/section_frame.dart';
 import 'package:eduwise/screens/student-dashboard/student__theme.dart';
-import 'package:eduwise/widget/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -47,7 +46,7 @@ class _StudentProfileScreenState extends State<StudentProfileScreen> {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      drawer: const AppDrawer(), // ✅ Drawer on left
+      // drawer: const AppDrawer(), // ✅ Drawer on left
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           ScaffoldMessenger.of(

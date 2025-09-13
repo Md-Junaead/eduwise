@@ -25,25 +25,9 @@ class ConsultantDashboardController extends GetxController {
       "icon": Icons.add_box,
       "destination": ConsultantServiceCreateView(),
     },
-    {
-      "title": "Service",
-      "icon": Icons.design_services,
-      "destination": null, // TODO: Replace with your Service screen
-    },
-    {
-      "title": "Review",
-      "icon": Icons.reviews,
-      "destination": null, // TODO: Replace with your Review screen
-    },
-    {
-      "title": "Training Course",
-      "icon": Icons.menu_book,
-      "destination": null, // TODO: Replace with your Training Course screen
-    },
-    {
-      "title": "Profile",
-      "icon": Icons.person,
-      "destination": null, // TODO: Replace with your Profile screen
-    },
+    {"title": "Service", "icon": Icons.design_services, "destination": null},
+    {"title": "Review", "icon": Icons.reviews, "destination": null},
+    {"title": "Training Course", "icon": Icons.menu_book, "destination": null},
+    {"title": "Profile", "icon": Icons.person, "destination": null},
   ];
 }

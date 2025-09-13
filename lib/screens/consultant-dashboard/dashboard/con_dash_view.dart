@@ -40,7 +40,7 @@ class ConsultantDashboardView extends StatelessWidget {
                     const CircleAvatar(
                       radius: 35,
                       backgroundImage: NetworkImage(
-                        "https://eduwise.com.bd/storage/CompanyDetail/1751975590_686d06a68f658.png",
+                        "https://eduwise.com.bd/storage/Training_Thumbnail/default_1752055674.png",
                       ),
                     ),
                     const SizedBox(width: 15),
@@ -232,7 +232,7 @@ class ConsultantDashboardView extends StatelessWidget {
           ),
         ),
       ),
-
+      /*
       /// ---------- LOGOUT BUTTON ----------
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16),
@@ -256,6 +256,7 @@ class ConsultantDashboardView extends StatelessWidget {
           ),
         ),
       ),
+      */
     );
   }
 }

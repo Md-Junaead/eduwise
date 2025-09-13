@@ -261,6 +261,7 @@ class StudentDashBoardScreen extends StatelessWidget {
         ),
       ),
 
+      /*
       /// ---------- LOGOUT BUTTON (bottom) ----------
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16),
@@ -284,6 +285,7 @@ class StudentDashBoardScreen extends StatelessWidget {
           ),
         ),
       ),
+      */
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:eduwise/configs/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 /// ✅ FAQ Section Widget (Updated with 15px spacing)
@@ -48,7 +49,7 @@ class FAQSection extends StatelessWidget {
                 style: TextStyle(
                   fontSize: MediaQuery.of(context).size.width < 600 ? 20 : 28,
                   fontWeight: FontWeight.bold,
-                  color: Colors.blue.shade900,
+                  color: TColors.black,
                 ),
               ),
               const SizedBox(width: 8),

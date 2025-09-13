@@ -14,7 +14,7 @@ class StudentConsultantScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Consultant Selection"),
-        backgroundColor: TColors.secondary,
+        backgroundColor: TColors.primary,
         centerTitle: true,
       ),
       body: Column(

@@ -14,7 +14,7 @@ class ConsultantServiceCreateView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Your Published Services"),
-        backgroundColor: TColors.secondary,
+        backgroundColor: TColors.primary,
         elevation: 4,
       ),
       body: Obx(
@@ -229,7 +229,7 @@ class ConsultantServiceCreateView extends StatelessWidget {
         },
         icon: const Icon(Icons.add),
         label: const Text("Add Service"),
-        backgroundColor: TColors.secondary,
+        backgroundColor: TColors.primary,
       ),
     );
   }

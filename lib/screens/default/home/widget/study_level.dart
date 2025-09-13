@@ -48,11 +48,11 @@ class StudyLevelSection extends StatelessWidget {
                 children: [
                   Text(
                     "Accurate Guidelines for your Required Study",
-                    textAlign: TextAlign.center,
+                    textAlign: TextAlign.left,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: TColors.primary,
+                      color: TColors.black,
                     ),
                   ),
                   SizedBox(height: 10),

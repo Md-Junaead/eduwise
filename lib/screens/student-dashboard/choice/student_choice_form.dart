@@ -38,7 +38,7 @@ class _StudentChoiceFormState extends State<StudentChoiceForm> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Create Student Choice"),
-        backgroundColor: TColors.secondary,
+        backgroundColor: TColors.primary,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -83,8 +83,8 @@ class _StudentChoiceFormState extends State<StudentChoiceForm> {
                     _modernButton(
                       label: "Clear",
                       icon: Icons.clear,
-                      color1: Colors.white,
-                      color2: Colors.white,
+                      color1: TColors.primary,
+                      color2: TColors.primary,
                       onTap: () {
                         _formKey.currentState?.reset();
                         setState(() {
@@ -101,8 +101,8 @@ class _StudentChoiceFormState extends State<StudentChoiceForm> {
                     _modernButton(
                       label: "Save",
                       icon: Icons.save,
-                      color1: TColors.white,
-                      color2: TColors.white,
+                      color1: TColors.primary,
+                      color2: TColors.primary,
                       onTap: () {
                         Get.snackbar(
                           "Info",
@@ -125,7 +125,7 @@ class _StudentChoiceFormState extends State<StudentChoiceForm> {
     return DropdownButtonFormField<String>(
       value: selectedService,
       decoration: InputDecoration(
-        prefixIcon: const Icon(Icons.design_services, color: Colors.red),
+        prefixIcon: const Icon(Icons.design_services, color: TColors.primary),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         hintText: "Select a Service",
         contentPadding: const EdgeInsets.symmetric(
@@ -155,7 +155,7 @@ class _StudentChoiceFormState extends State<StudentChoiceForm> {
       },
       child: InputDecorator(
         decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.calendar_today, color: Colors.red),
+          prefixIcon: const Icon(Icons.calendar_today, color: TColors.primary),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
           hintText: "Your Preferred Session/Year",
           contentPadding: const EdgeInsets.symmetric(
@@ -182,7 +182,7 @@ class _StudentChoiceFormState extends State<StudentChoiceForm> {
       controller: controller,
       keyboardType: isNumber ? TextInputType.number : TextInputType.text,
       decoration: InputDecoration(
-        prefixIcon: Icon(icon, color: Colors.red),
+        prefixIcon: Icon(icon, color: TColors.primary),
         hintText: hint,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         contentPadding: const EdgeInsets.symmetric(
@@ -219,7 +219,7 @@ class _StudentChoiceFormState extends State<StudentChoiceForm> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: isPressed
-                      ? [TColors.primary, TColors.primary]
+                      ? [TColors.black, TColors.black]
                       : [color1, color2],
                 ),
                 borderRadius: BorderRadius.circular(14),
@@ -236,14 +236,14 @@ class _StudentChoiceFormState extends State<StudentChoiceForm> {
                 children: [
                   Icon(
                     icon,
-                    color: isPressed ? Colors.white : TColors.secondary,
+                    color: isPressed ? TColors.white : TColors.white,
                     size: 20,
                   ),
                   const SizedBox(width: 8),
                   Text(
                     label,
                     style: TextStyle(
-                      color: isPressed ? Colors.white : TColors.secondary,
+                      color: isPressed ? TColors.white : TColors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
                     ),

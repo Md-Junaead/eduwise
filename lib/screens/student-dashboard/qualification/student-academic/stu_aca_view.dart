@@ -16,7 +16,7 @@ class StudentAcademicScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Academic Profile"),
-        backgroundColor: TColors.secondary,
+        backgroundColor: TColors.primary,
       ),
       body: Obx(() {
         final academics = controller.academics;
@@ -66,7 +66,7 @@ class StudentAcademicScreen extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: TColors.secondary,
+                    color: TColors.primary,
                   ),
                 ),
                 children: [
@@ -123,7 +123,7 @@ class StudentAcademicScreen extends StatelessWidget {
                               Get.to(() => const StudentAcademicForm());
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: TColors.secondary,
+                              backgroundColor: TColors.primary,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),

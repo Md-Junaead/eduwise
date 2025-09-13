@@ -7,23 +7,16 @@ class TColors {
 
   // static const Color secondary = Color(0xFF0C4A6E); // rgb(229, 4, 5)
   static const Color secondary = Color(0xFFE50405); // rgb(229, 4, 5)
-  static const Color secondaryLight = Color(
-    0x990C4A6E,
-  ); // rgba(12, 74, 110, 0.586)
-  static const Color primaryBackground = Color(
-    0x190C4A6E,
-  ); // rgba(12, 74, 110, 0.096)
-  static const Color secondaryBackground = Color(
-    0x14E24800,
-  ); // rgba(226, 72, 0, 0.096)
-  static const Color accent = Color(
-    0xFF00643F,
-  ); // gradient right color rgb(0, 100, 63)
+  static const Color secondaryLight = Color(0x990C4A6E);
+  static const Color primaryBackground = Color(0x190C4A6E);
+  static const Color secondaryBackground = Color(0x14E24800);
+  static const Color accent = Color(0xFF00643F);
 
   // Dashboard Specific Colors
-  static const Color dashboardAppbarBackground = Color(
-    0xFF0C4A6E,
-  ); // consultant-primary-color
+  static const Color dashboardAppbarBackground = Color(0xFF0C4A6E);
+
+  // Home screen section separtator
+  static const Color homebackground = Color(0xFFF2F2F0);
 
   // Text colors
   static const Color textPrimary = Color(0xFF0C4A6E); // primary text

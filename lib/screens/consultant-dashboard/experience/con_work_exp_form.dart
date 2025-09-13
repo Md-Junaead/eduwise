@@ -13,7 +13,7 @@ class ConsultantWorkExperienceForm extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Add Work Experience"),
-        backgroundColor: TColors.secondary,
+        backgroundColor: TColors.primary,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -55,7 +55,7 @@ class ConsultantWorkExperienceForm extends StatelessWidget {
               label: const Text("Add Experience"),
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(44),
-                backgroundColor: TColors.secondary,
+                backgroundColor: TColors.primary,
               ),
             ),
           ],
@@ -89,10 +89,7 @@ class ConsultantWorkExperienceForm extends StatelessWidget {
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(
-                color: TColors.secondary,
-                width: 1.5,
-              ),
+              borderSide: const BorderSide(color: TColors.primary, width: 1.5),
             ),
           ),
           controller: TextEditingController(text: obs.value),
@@ -127,10 +124,7 @@ class ConsultantWorkExperienceForm extends StatelessWidget {
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(
-                color: TColors.secondary,
-                width: 1.5,
-              ),
+              borderSide: const BorderSide(color: TColors.primary, width: 1.5),
             ),
           ),
           child: Text(
@@ -164,7 +158,7 @@ class ConsultantWorkExperienceForm extends StatelessWidget {
             icon: const Icon(Icons.upload_file, size: 16),
             label: const Text("Upload", style: TextStyle(fontSize: 12)),
             style: OutlinedButton.styleFrom(
-              backgroundColor: TColors.secondary,
+              backgroundColor: TColors.primary,
               foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),

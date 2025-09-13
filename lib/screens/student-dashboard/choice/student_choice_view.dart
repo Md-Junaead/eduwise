@@ -14,7 +14,7 @@ class StudentChoiceScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Student Choice"),
-        backgroundColor: TColors.secondary,
+        backgroundColor: TColors.primary,
       ),
       body: Obx(() {
         final choices = controller.choices;
@@ -48,7 +48,7 @@ class StudentChoiceScreen extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: TColors.secondary,
+                          color: TColors.black,
                         ),
                       ),
                       const SizedBox(height: 6),
@@ -90,7 +90,7 @@ class StudentChoiceScreen extends StatelessWidget {
         );
       }),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: TColors.secondary,
+        backgroundColor: TColors.primary,
         child: const Icon(Icons.add),
         onPressed: () {
           Get.to(() => const StudentChoiceForm());
@@ -107,7 +107,7 @@ class StudentChoiceScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (icon != null) ...[
-            Icon(icon, size: 14, color: TColors.secondary),
+            Icon(icon, size: 14, color: TColors.primary),
             const SizedBox(width: 4),
           ],
           Text(

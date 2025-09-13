@@ -12,8 +12,6 @@ void main() {
   runApp(const MyApp());
 }
 
-// flutter build apk --build-name=1.0 --build-number=1
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -37,48 +35,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-/*
-
-For an education consultant service mobile app, the color palette should convey trust, professionalism, and approachability while remaining calm and readable. Here’s a guideline:
-
-Primary Color
-
-Blue shades: Blue is widely associated with trust, intelligence, and reliability.
-
-Examples:
-
-Royal Blue (#2A52BE) – professional, trustworthy
-
-Teal Blue (#008080) – modern and friendly
-
-Sky Blue (#00AEEF) – clean, fresh, approachable
-
-Secondary / Accent Colors
-
-Orange (#FF8C00) – energy, motivation, calls-to-action (buttons)
-
-Green (#28A745) – success messages, highlights
-
-Yellow (#FFD700) – subtle highlights, cheerful elements
-
-Neutral / Background Colors
-
-Light Gray (#F5F5F5) – background areas, safe for text readability
-
-White (#FFFFFF) – forms, cards, main content areas
-
-Dark Gray (#333333) – text for high readability
-
-Suggested Combinations
-
-Primary: Royal Blue
-Secondary: Orange (for buttons, highlights)
-Neutral: White & Light Gray
-
-Primary: Teal Blue
-Secondary: Yellow
-Neutral: White & Dark Gray
-
-*/

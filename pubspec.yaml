@@ -16,7 +16,7 @@ dependencies:
 
   # 🌐 Networking
   dio: ^5.4.0
-  connectivity_plus: ^6.0.2
+  connectivity_plus: ^7.0.0
 
   # 🔒 Authentication & Security
   google_sign_in: ^7.1.1

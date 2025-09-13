@@ -13,7 +13,7 @@ class ConsultantEducationForm extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Add Educational Qualification"),
-        backgroundColor: TColors.secondary,
+        backgroundColor: TColors.primary,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -56,7 +56,7 @@ class ConsultantEducationForm extends StatelessWidget {
               child: const Text("Save"),
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(44),
-                backgroundColor: TColors.secondary,
+                backgroundColor: TColors.primary,
               ),
             ),
           ],
@@ -151,7 +151,7 @@ class ConsultantEducationForm extends StatelessWidget {
             icon: const Icon(Icons.upload_file, size: 16),
             label: const Text("Upload", style: TextStyle(fontSize: 12)),
             style: OutlinedButton.styleFrom(
-              backgroundColor: TColors.secondary,
+              backgroundColor: TColors.primary,
               foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
